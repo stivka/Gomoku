@@ -7,15 +7,8 @@ public class PR01 {
      * @param args will be a string the server provides.
      */
     public static void main(String[] args) {
-        /*
-
-         */
-
-        //    Hello Peeter, number of letters in your name: 6.
         System.out.println(printAndReturnHello("Peeter"));
-
     }
-
     /**
      *
      * @param name the String given by the server.
