@@ -18,14 +18,14 @@ public class PR01 {
 
     /**
      *
-     * @param name does it take time
-     * @return
+     * @param name the String given by the server.
+     * @return a String with the message "Hello (name),
+     * number of letters in your name: (name.length())."
      */
     public static String printAndReturnHello(String name) {
         if (name == null || name.length() == 0) {
             return null;
-        }
-        else {
+        } else {
             return ("Hello " + name + ", number of letters in your name: "
                     + name.length() + ".");
 
