@@ -26,7 +26,7 @@ public class PR01 {
             return null;
         }
         else {
-            return ("Hello " + name + " number of letters in your name: "
+            return ("Hello " + name + ", number of letters in your name: "
                     + name.length() + ".");
 
         }
