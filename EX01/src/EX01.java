@@ -32,10 +32,25 @@ import java.util.stream.IntStream;
          * @return Separator line.
          */
         public static String getLineSeparator(int width) {
+            String line = null;
+            for (int i = 0; i < width; i++) {
+                if (i == 0 || i == width - 1) {
+                    line += "+";
+                } else {
+                    line += "-";
+                }
+                return line;
+
+            }
         }
 
-
         public static String getFormattedLine(String line, int length) {
+            String other = null;
+            for (int i = 0; i < ((length - line.length()) / 2) - 1; i++) {
+                other += " ";
+            }
+            other += line;
+            for (int i = other.length() ; i < ((length - line.length()) / 2) - 1; i++)
         }
 
 
