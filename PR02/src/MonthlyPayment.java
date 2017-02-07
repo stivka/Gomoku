@@ -57,18 +57,18 @@ public class MonthlyPayment {
             // check for value 'not a number', does this even do anything and is there need for null check?
         }
 
-        else if (!(loanAmount > 0 || loanLength > 0 || interestRate > 0 || downPayment >= 0.0)) {
+        if (!(loanAmount > 0 || loanLength > 0 || interestRate > 0 || downPayment >= 0.0)) {
             return Double.NaN;
-        } else {
-            monthlyPayment = ((loanAmount * (1 + (interestRate/100)))); // amount the bank will receive ultimately.
-            monthlyPayment -= downPayment; // subtracts the downpayment.
-            if (!(monthlyPayment > 0)) {
-                return 0;
-            }
-            monthlyPayment /= loanLength;
-            // the sum with the interest, minus the downpayment, is divided by the amount of months to determine the
-            // monthly payment.
-            return monthlyPayment;
+        }
+        monthlyPayment = ((loanAmount * (1 + (interestRate/100)))); // amount the bank will receive ultimately.
+        monthlyPayment -= downPayment; // subtracts the downpayment.
+        if (!(monthlyPayment > 0)) {
+            return 0;
+        }
+        monthlyPayment /= loanLength;
+        // the sum with the interest, minus the downpayment, is divided by the amount of months to determine the
+        // monthly payment.
+        return monthlyPayment;
 
 
         }
@@ -76,4 +76,3 @@ public class MonthlyPayment {
 
 
     }
-}
