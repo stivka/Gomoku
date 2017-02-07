@@ -29,9 +29,6 @@ public class MonthlyPayment {
         if (getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment) == Double.NaN) {
             return ("Invalid loan criteria!");
         }
-        if (getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment) == 0) {
-            return ()
-        }
         return ("Monthly payment is: " + Double.toString(getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment))
                     + " euros.");
     }
