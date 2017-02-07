@@ -29,6 +29,9 @@ public class MonthlyPayment {
         if (getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment) == Double.NaN) {
             return ("Invalid loan criteria!");
         }
+        if (getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment) == 0) {
+            return ()
+        }
         return ("Monthly payment is: " + Double.toString(getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment))
                     + " euros.");
     }
@@ -56,17 +59,18 @@ public class MonthlyPayment {
             return Double.NaN;
             // check for value 'not a number', does this even do anything and is there need for null check?
         }
-
-        if (!(loanAmount > 0) || !(loanLength > 0) || !(interestRate > 0) || !(downPayment >= 0.0)) {
+        if (!(loanAmount > 0) || (loanLength < 1) || !(interestRate > 0) || !(downPayment > 0)) {
             return Double.NaN;
         }
         monthlyPayment = ((loanAmount * (1 + (interestRate/100)))); // amount the bank will receive ultimately.
-        monthlyPayment -= downPayment; // subtracts the downpayment.
+        monthlyPayment -= downPayment; // subtracts the down payment.
         if (!(monthlyPayment > 0)) {
-            return 0;
+            return 0; // if the down payment is larger than the sum left to pay, nothing is left to pay.
+        // remains however question whether the bank should pay anything back. In other words, can the downpayment
+            // even be larger than the payment?
         }
         monthlyPayment /= loanLength;
-        // the sum with the interest, minus the downpayment, is divided by the amount of months to determine the
+        // the sum with the interest, minus the down payment, is divided by the amount of months to determine the
         // monthly payment.
         return monthlyPayment;
 
