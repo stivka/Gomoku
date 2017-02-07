@@ -1,3 +1,6 @@
+/**
+ *
+ */
 public class MonthlyPayment {
 
     /**
@@ -26,7 +29,7 @@ public class MonthlyPayment {
      * @return Monthly payment as a string.
      */
     public static String getMonthlyPaymentString(double loanAmount, int loanLength, double interestRate, double downPayment) {
-        if (getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment) == Double.NaN) {
+        if (Double.isNaN(getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment))) {
             return ("Invalid loan criteria!");
         }
         return ("Monthly payment is: " + Double.toString(getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment))
@@ -56,7 +59,7 @@ public class MonthlyPayment {
             return Double.NaN;
             // check for value 'not a number', does this even do anything and is there need for null check?
         }
-        if (!(loanAmount > 0) || (loanLength < 1) || !(interestRate > 0) || !(downPayment > 0)) {
+        if (!(loanAmount > 0) || (loanLength < 1) || !(interestRate > 0) || !(downPayment >= 0)) {
             return Double.NaN;
         }
         monthlyPayment = ((loanAmount * (1 + (interestRate/100)))); // amount the bank will receive ultimately.
@@ -66,14 +69,9 @@ public class MonthlyPayment {
         // remains however question whether the bank should pay anything back. In other words, can the downpayment
             // even be larger than the payment?
         }
-        monthlyPayment /= loanLength;
+        monthlyPayment /= (loanLength * 12);
         // the sum with the interest, minus the down payment, is divided by the amount of months to determine the
         // monthly payment.
-        return monthlyPayment;
-
-
-        }
-
-
-
+        return (double) Math.round(monthlyPayment * 100000d) / 100000d;
     }
+}
