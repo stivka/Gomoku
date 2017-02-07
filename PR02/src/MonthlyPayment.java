@@ -26,7 +26,11 @@ public class MonthlyPayment {
      * @return Monthly payment as a string.
      */
     public static String getMonthlyPaymentString(double loanAmount, int loanLength, double interestRate, double downPayment) {
-        return Double.toString(getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment));
+        if (getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment) == Double.NaN) {
+            System.out.println("Invalid loan criteria!");
+        }
+        return ("Monthly payment is: " + Double.toString(getMonthlyPayment(loanAmount, loanLength, interestRate, downPayment))
+                    + " euros.");
     }
 
     /**
