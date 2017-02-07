@@ -2,6 +2,14 @@
  *
  */
 public class MonthlyPayment {
+    /**
+     *
+     */
+    public static int perCENT = 100;
+    /**
+     *
+     */
+    private static int monthsYEAR = 12;
 
     /**
      * Entry point of the program.
@@ -52,8 +60,7 @@ public class MonthlyPayment {
      * In case the down payment is enough to cover the loan, returns 0.
      */
     public static double getMonthlyPayment(double loanAmount, int loanLength, double interestRate, double downPayment) {
-        double monthlyPayment = 0.0;
-        double wholePayment = 0;
+        double monthlyPayment;
         if (Double.isNaN(loanAmount) || Double.isNaN(loanLength) || Double.isNaN(interestRate)
                 || Double.isNaN(downPayment)) {
             return Double.NaN;
@@ -62,14 +69,14 @@ public class MonthlyPayment {
         if (!(loanAmount > 0) || (loanLength < 1) || !(interestRate > 0) || !(downPayment >= 0)) {
             return Double.NaN;
         }
-        monthlyPayment = ((loanAmount * (1 + (interestRate/100)))); // amount the bank will receive ultimately.
+        monthlyPayment = ((loanAmount * (1 + (interestRate / perCENT)))); // amount the bank will receive ultimately.
         monthlyPayment -= downPayment; // subtracts the down payment.
         if (!(monthlyPayment > 0)) {
             return 0; // if the down payment is larger than the sum left to pay, nothing is left to pay.
         // remains however question whether the bank should pay anything back. In other words, can the downpayment
             // even be larger than the payment?
         }
-        monthlyPayment /= (loanLength * 12);
+        monthlyPayment /= (loanLength * monthsYEAR);
         // the sum with the interest, minus the down payment, is divided by the amount of months to determine the
         // monthly payment.
         return (double) Math.round(monthlyPayment * 100000d) / 100000d;
