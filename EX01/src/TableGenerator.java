@@ -182,12 +182,14 @@ public class TableGenerator {
 
     public static void main(String[] args) {
         String sep = getLineSeparator(10);
-        // "+--------+"
+        System.out.println(getLineSeparator(10));
+        System.out.println("+--------+");
+
         System.out.println(getStringAlignedRight("tere", 10));
-        // "      tere"
+        System.out.println("      tere");
 
         System.out.println("|" + getStringInCenter("tere", 3) + "|");
-        // "|ter|"
+        System.out.println("|ter|");
 
         String table = getTable("Title", "Some text", 20);
         System.out.println(table);
