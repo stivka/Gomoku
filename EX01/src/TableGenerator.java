@@ -20,6 +20,12 @@ public class TableGenerator {
      * @return Repeated string.
      */
     public static String repeat(String s, int count) {
+        if (count < 1) {
+            return s;
+        }
+        if (s.equals(null)) {
+            return s;
+        }
         for (int i = 0; i < count; i++) {
             s += s;
         }
