@@ -126,7 +126,6 @@ public class TableGenerator {
                 cc = (text.length() - 1) / 2; // finds the center character position, or center-left character position.
                 fc = cc - ((width - 1) / 2); // finds the first character.
                 lc = cc + width - 1;
-                System.out.println(text.substring(fc, lc));
                 return text.substring(fc, lc);
 
 //                return text.substring((((text.length() - 1) / 2) - ((width - 1) / 2)), ((((text.length() - 1) / 2)
@@ -177,9 +176,18 @@ public class TableGenerator {
          */
 
     public static String getTable(String heading, String content, int width) {
-        return null;
+        if (width < 2) {
+            width = 2;
+        }
+        return (getLineSeparator(width) + "\n" + "|" + getStringInCenter(heading, width - 2) + "|" + "\n"
+                + getLineSeparator(width) + "\n" + "|" + getStringAlignedRight(content, width - 2) + "|" + "\n"
+                + getLineSeparator(width));
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         String sep = getLineSeparator(10);
         System.out.println(getLineSeparator(10));
