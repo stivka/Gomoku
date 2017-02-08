@@ -75,6 +75,7 @@ public class TableGenerator {
             for (int i = 0; i < length; i++) {
                 other += " ";
             }
+            return other;
         }
         for (int i = line.length() - length; i < line.length(); i++) {
             // if the 'cursor' is at the negative side of the line it lays spaces, once it reaches the positive side
