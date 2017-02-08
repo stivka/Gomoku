@@ -68,7 +68,7 @@ public class TableGenerator {
      */
     public static String getStringAlignedRight(String line, int length) {
         String other = "";
-        if (length < 1) {
+        if (length < 1 || line == null) {
             return "";
         } else {
             for (int i = line.length() - length; i < line.length(); i++) {
