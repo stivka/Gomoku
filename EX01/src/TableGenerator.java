@@ -132,29 +132,34 @@ public class TableGenerator {
         int lo = 0;
         if (width < 1) {
             return "";
-        } else {
-            if (text.length() - width > -1) { // if no padding is required.
-                cc = (text.length() - 1) / 2; // finds the center character position, or center-left character position.
-                fc = cc - ((width - 1) / 2); // finds the first character.
-                lc = cc + width - 1;
-                return text.substring(fc, lc);
-
-//                return text.substring((((text.length() - 1) / 2) - ((width - 1) / 2)), ((((text.length() - 1) / 2)
-//                        - ((width - 1) / 2) + width)));
-            } else { // if there's width left over for the edges.
-                lo = width - text.length(); // leftover
-                ls = ((lo + 1) / 2);
-                rs = lo - ls;
-                for (int l = 1; l <= ls; l++) {
-                    lp += " ";
-                }
-                for (int r = 1; r <= rs; r++) {
-                    rp += " ";
-                }
-                return lp + text + rp;
-            }
         }
+        if (text.equals(null)) {
+            for (int i = 0; i < text.length(); i++) {
+                lp += " ";
+            }
+            return lp;
+        }
+
+        if (text.length() - width > -1) { // if no padding is required.
+            cc = (text.length() - 1) / 2; // finds the center character position, or center-left character position.
+            fc = cc - ((width - 1) / 2); // finds the first character.
+            lc = cc + width - 1;
+            return text.substring(fc, lc);
+//          return text.substring((((text.length() - 1) / 2) - ((width - 1) / 2)), ((((text.length() - 1) / 2)
+//          - ((width - 1) / 2) + width)));
+        } // if there's width left over for the edges.
+        lo = width - text.length(); // leftover
+        ls = ((lo + 1) / 2);
+        rs = lo - ls;
+        for (int l = 1; l <= ls; l++) {
+            lp += " ";
+        }
+        for (int r = 1; r <= rs; r++) {
+            rp += " ";
+        }
+        return lp + text + rp;
     }
+
 
         /**
          * Generates a formatted table.
