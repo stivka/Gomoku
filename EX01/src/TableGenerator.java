@@ -78,7 +78,8 @@ public class TableGenerator {
                     other += line.charAt(i);
                 }
             }
-        } return other;
+        }
+        return other;
     }
 
 
@@ -186,7 +187,7 @@ public class TableGenerator {
 
     /**
      *
-     * @param args
+     * @param args is the server input
      */
     public static void main(String[] args) {
         String sep = getLineSeparator(10);
