@@ -68,18 +68,27 @@ public class TableGenerator {
      */
     public static String getStringAlignedRight(String line, int length) {
         String other = "";
-        if (length < 1 || line.equals(null)) {
+        if (length < 1) {
             return "";
-        } else {
-            for (int i = line.length() - length; i < line.length(); i++) {
-                if (i < 0) {
-                    other += " ";
-                } else {
-                    other += line.charAt(i);
-                }
+        }
+        if (line.equals(null)) {
+            for (int i = 0; i < length; i++) {
+                other += " ";
             }
         }
-        return other;
+        for (int i = line.length() - length; i < line.length(); i++) {
+            // if the 'cursor' is at the negative side of the line it lays spaces, once it reaches the positive side
+            // it will lay down as much of the line that is left.
+            if (i < 0) {
+                other += " ";
+            } else {
+                other += line.charAt(i);
+            }
+            if (line.equals(null)) {
+                other += " ";
+            }
+        }
+    return other;
     }
 
 
@@ -182,7 +191,7 @@ public class TableGenerator {
         }
         return (getLineSeparator(width) + "\n" + "|" + getStringInCenter(heading, width - 2) + "|" + "\n"
                 + getLineSeparator(width) + "\n" + "|" + getStringAlignedRight(content, width - 2) + "|" + "\n"
-                + getLineSeparator(width));
+                + getLineSeparator(width) + "\n");
     }
 
     /**
@@ -190,7 +199,6 @@ public class TableGenerator {
      * @param args is the server input
      */
     public static void main(String[] args) {
-        String sep = getLineSeparator(10);
         System.out.println(getLineSeparator(10));
         System.out.println("+--------+");
 
