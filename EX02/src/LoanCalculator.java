@@ -1,5 +1,7 @@
+import java.text.DecimalFormat;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 /**
  * Loan calculator for a fixed rate loan. Creates a payment schedule based on
@@ -75,6 +77,8 @@ public class LoanCalculator {
      * @return True if the interest rate is in the allowed range, false otherwise.
      */
     public static boolean isValidInterestRate(double yearlyRate) {
+        // Should it be valid to accept values with decimal places here? Some value like 12.46 referring to 12 years
+        // and 0.46 of a year?
         if (yearlyRate >= MIN_INTEREST_RATE && yearlyRate <= MAX_INTEREST_RATE) {
             return true;
         }
@@ -106,12 +110,13 @@ public class LoanCalculator {
      */
     public static String repeat(String s, int count) {
         if (s.equals(null) || count < 1) {
-        return null;
+            return null;
         }
         for (int i = 1; i <= count; i++) {
             s += s;
         }
         return s;
+    }
 
     /**
      * Return the current date and time.
@@ -208,11 +213,23 @@ public class LoanCalculator {
      *
      * @param loanAmount Size of the loan amount.
      * @param period Period of the loan in years.
-     * @param interestRate Fixed yearly interest rate percent.
+     * @param yearlyInterestRate Fixed yearly interest rate percent.
      */
     public static void printFixedPaymentPlan(
             double loanAmount, double period, double yearlyInterestRate) {
-        // Your code here
+
+        YearMonth firstMonth;
+        double amountLeft;
+        double monthlyPayment;
+        double interestPayment;
+
+        firstMonth = nextMonth(currentDate());
+        amountLeft =
+
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        System.out.println(monthAndYearStringFrom(firstMonth));
+        System.out.println(decimalFormat.format(period));
+
     }
 
     /**
@@ -257,7 +274,67 @@ public class LoanCalculator {
      * @param args Arguments from the command line.
      */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        // Your code here
+        // define amount here, then we can use it later after reading input
+// the value -1 gives us the opportunity to check if the input
+// reading part has failed or not. Not really necessary.
+        double amount = -1;
+        int queue = 0;
+        double loanAmount = 0;
+        double period = 0;
+        double yearlyInterestRate = 0;
+
+// try with resources - the scanner is closed automatically
+// and optionally, catch-blocks can be added
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (true) {
+                // no need to use println here as user inserts the number
+                // after the text and hits enter (we then get a new line).
+                if (queue == 0) {
+                    System.out.println("Insert the amount of money you want to lend:");
+                }
+                if (queue == 1) {
+                    System.out.println("Insert for how many years you want to take the loan for:");
+                }
+                if (queue == 2) {
+                    System.out.println("Insert the rate of interest you are willing to pay:");
+                }
+                if (!scanner.hasNext()) {
+                    // if for some reason the scanner is closed,
+                    // let's break the while
+                    break;
+                }
+                if (scanner.hasNextDouble()) {
+                    amount = scanner.nextDouble();
+                    if (queue == 2 && isValidInterestRate(amount)) {
+                        yearlyInterestRate = amount;
+                        /* won't queue as it will start from default value after another method is initiated,
+                        right?
+                        Last question in queue, so this step should initiate the next method.
+                         */
+                        printFixedPaymentPlan(loanAmount, period, yearlyInterestRate);
+                        break;
+                    }
+                    if (queue == 1 && isValidLoanPeriod(amount)) {
+                        period = amount;
+                        queue = 2;
+                    }
+                    if (queue == 0 && isValidLoanAmount(amount)) {
+                        loanAmount = amount;
+                        /* already asks the next question. And the && is because, it won't go forward till a valid
+                        amount is given.
+                         */
+                        queue = 1;
+                    }
+                    // no need to else. if the previous condition
+                    // was true, the break would end the while loop
+                } else {
+                    scanner.next();
+                    System.out.println("Not a number, try again!");
+                }
+            }
+        }
+// we can check here. if the value is -1, then the input loop has failed
+        if (amount != -1) {
+        }
     }
 }

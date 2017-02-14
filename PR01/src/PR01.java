@@ -19,8 +19,8 @@ public class PR01 {
         if (name == null || name.length() == 0) {
             return null;
         } else {
-            return ("Hello " + name + ", number of letters in your name: "
-                    + name.length() + ".");
+            return "Hello " + name + ", number of letters in your name: "
+                    + name.length() + ".";
 
         }
 
