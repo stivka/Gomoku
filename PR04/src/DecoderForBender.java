@@ -5,8 +5,9 @@ public class DecoderForBender {
      * @param args Arguments from command line.
      */
     public static void main(String[] args) {
-        String codedMessage = "22ab"
-;        decode("22ab");
+        decode("22ab");
+        decode("b12acrt15a");
+
     }
 
     /**
@@ -39,13 +40,13 @@ public class DecoderForBender {
             if (Character.isLetter(codedMessage.charAt(i)) && multiCounter > 0) {
                 // In case there is any number, multi-digit or one digit, preceding the character. It will produce the
                 // suitable string. Also it resets the multi-digit counter and multi-digit string.
-                multiCounter = 0;
                 for (int j = 0; j < Integer.parseInt(stringMultiDigit); j++) {
                     decodedMessage += codedMessage.charAt(i);
                 }
+                multiCounter = 0;
                 stringMultiDigit = "";
             }
-            if (Character.isLetter(codedMessage.charAt(i)) && multiCounter < 1) {
+            if (Character.isLetter(codedMessage.charAt(i)) && multiCounter < 1 ) {
                 // if the preceding character is either another character, or there isn't a preceding character.
                 decodedMessage += codedMessage.charAt(i);
             }
