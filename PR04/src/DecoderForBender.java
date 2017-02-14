@@ -32,8 +32,7 @@ public class DecoderForBender {
             if (Character.isDigit(codedMessage.charAt(i))) {
                 stringMultiDigit += codedMessage.charAt(i);
                 multiCounter++;
-            }
-            else if (Character.isLetter(codedMessage.charAt(i)) && multiCounter > 0) {
+            } else if (Character.isLetter(codedMessage.charAt(i)) && multiCounter > 0) {
                 // In case there is any number, multi-digit or one digit, preceding the character. It will produce the
                 // suitable string. Also it resets the multi-digit counter and multi-digit string.
                 for (int j = 0; j < Integer.parseInt(stringMultiDigit); j++) {
@@ -41,8 +40,7 @@ public class DecoderForBender {
                 }
                 multiCounter = 0;
                 stringMultiDigit = "";
-            }
-            else if (Character.isLetter(codedMessage.charAt(i)) && multiCounter < 1 ) {
+            } else if (Character.isLetter(codedMessage.charAt(i)) && multiCounter < 1) {
                 // if the preceding character is either another character, or there isn't a preceding character.
                 decodedMessage += codedMessage.charAt(i);
             }
