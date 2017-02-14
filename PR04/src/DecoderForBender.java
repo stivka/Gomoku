@@ -1,3 +1,6 @@
+/**
+ *
+ */
 public class DecoderForBender {
     /**
 
@@ -25,13 +28,6 @@ public class DecoderForBender {
         String stringMultiDigit = "";
         int multiCounter = 0;
         String decodedMessage = "";
-        //TODO: implement decoding logic here
-        // Hint: Loop through the message,
-        // determine if current character is a number or a letter,
-        // and add it to output string.
-        // Pro tip: Collect multi-digit numbers to a string
-        // and convert it to an Integer to find out
-        // how many letters are needed.
         for (int i = 0; i < codedMessage.length(); i++) {
             if (Character.isDigit(codedMessage.charAt(i))) {
                 stringMultiDigit += codedMessage.charAt(i);
