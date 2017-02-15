@@ -32,12 +32,16 @@ public class Cryptonator {
         for (int c = 0; c < plainText.length(); c++) {
 //            System.out.print(stringAlphabet.indexOf(c));
             if (Character.isLetter(plainText.charAt(c))) {
-                // perfect!
+                /* perfect! index equals to the lowercase character index number in accordance to the alphabet string.
+                the rotation is also applied, which is divided by modulus to eliminate whole cycles - from a (index  0)
+                - 27 should do one cycle and - 1, landing on z. Which divided with modulus would give (27 % 26 = 1) a
+                plain 1, implying that the operation merely be - 1.
+                */
                 System.out.print(stringAlphabet.indexOf((plainText.toLowerCase()).charAt(c)) + " ");
                 index = stringAlphabet.indexOf((plainText.toLowerCase()).charAt(c))
                         - (rotation % NUM_LETTERS_ALPHABET);
                 if (index < 0) {
-                    index = NUM_LETTERS_ALPHABET + index;
+                    index = NUM_LETTERS_ALPHABET + index; // a, rotation 1 -> 26 + (-1) = 25, 25 = z (by index)
                     encryption += stringAlphabet.charAt(index);
                 } else {
                     encryption += stringAlphabet.charAt(index);
@@ -47,7 +51,7 @@ public class Cryptonator {
             }
         }
         System.out.println("\n" + encryption);
-        return null;
+        return encryption;
     }
 
     /**
