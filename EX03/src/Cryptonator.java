@@ -18,6 +18,7 @@ public class Cryptonator {
      */
     public static String encrypt(String plainText, int rotation) {
         String encryption = "";
+        int index = 0;
         if (plainText == null) {
             return null;
         }
@@ -32,11 +33,20 @@ public class Cryptonator {
 //            System.out.print(stringAlphabet.indexOf(c));
             if (Character.isLetter(plainText.charAt(c))) {
                 // perfect!
-                System.out.println(stringAlphabet.indexOf((plainText.toLowerCase()).charAt(c)));
-                encryption += stringAlphabet.indexOf((plainText.toLowerCase()).charAt(c))
+                System.out.print(stringAlphabet.indexOf((plainText.toLowerCase()).charAt(c)) + " ");
+                index = stringAlphabet.indexOf((plainText.toLowerCase()).charAt(c))
                         - (rotation % NUM_LETTERS_ALPHABET);
+                if (index < 0) {
+                    index = NUM_LETTERS_ALPHABET + index;
+                    encryption += stringAlphabet.charAt(index);
+                } else {
+                    encryption += stringAlphabet.charAt(index);
+                }
+            } else {
+                encryption += plainText.charAt(c);
             }
         }
+        System.out.println("\n" + encryption);
         return null;
     }
 
@@ -126,6 +136,8 @@ public class Cryptonator {
          */
         System.out.println("you too Brutus?" + " (is the plain text - not encrypted message)");
         System.out.println("iye dyy ledec?" + " (is the right outcome)");
-        encrypt("you too Brutus?", 3);
+        System.out.println("xnt snn aqtstr?" + " (for rotation 1");
+        encrypt("you too Brutus?", 16);
+        encrypt("you too Brutus?", 1);
     }
 }
