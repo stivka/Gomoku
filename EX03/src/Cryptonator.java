@@ -8,6 +8,7 @@ public class Cryptonator {
     public static char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     public static String stringAlphabet = "abcdefghijklmnopqrstuvwxyz";
     public static final int NUM_LETTERS_ALPHABET = 26;
+    public static char mostInfrequentLetter = 'a';
 //    public static int[] frequency = new int[NUM_LETTERS_ALPHABET];
 
     /**
@@ -44,14 +45,19 @@ public class Cryptonator {
                 if (index < 0) {
                     index = NUM_LETTERS_ALPHABET + index; // a, rotation 1 -> 26 + (-1) = 25, 25 = z (by index)
                     encryption += stringAlphabet.charAt(index);
-                } else {
+                }
+                if (index >= NUM_LETTERS_ALPHABET) { // for negative rotations.
+                    index = 0 + (index - NUM_LETTERS_ALPHABET);
+                    encryption += stringAlphabet.charAt(index);
+                }
+                else {
                     encryption += stringAlphabet.charAt(index);
                 }
             } else {
                 encryption += plainText.charAt(c);
             }
         }
-        System.out.println("\n" + encryption + " (is what i got)");
+        System.out.println("\n" + encryption + " (with rotation applied)");
         findMostInfrequentlyOccurringLetter(encryption);
         return encryption;
     }
@@ -64,7 +70,7 @@ public class Cryptonator {
      */
     public static char findMostInfrequentlyOccurringLetter(String text) {
         int[] frequency = new int[NUM_LETTERS_ALPHABET];
-        char mostInfrequentChar = '!';
+        mostInfrequentLetter = 'a';
         boolean printed = false;
         int minCount = text.length() + 1; /* count of the smallest value that a letter occurs so far. Set at maximum
         value, which is that all characters of that string are that letter, plus one, so that .*/
@@ -101,12 +107,13 @@ public class Cryptonator {
         // This cycle returns the first character in alphabetical order, that occurs the least.
         for (int l = 0; l < frequency.length; l++) {
             if (frequency[l] == minCount) {
-                mostInfrequentChar = stringAlphabet.charAt(l);
+                mostInfrequentLetter = stringAlphabet.charAt(l);
                 break;
             }
         }
-        System.out.println("\nMost infrequent char in the order of the alphabet is: " + mostInfrequentChar);
-        return mostInfrequentChar;
+        System.out.println("\nMost infrequent char in the order of the alphabet is: " + mostInfrequentLetter);
+        minimizeText(text);
+        return mostInfrequentLetter;
     }
 
     /**
@@ -147,8 +154,13 @@ public class Cryptonator {
      * @return text in which the rarest letter has been removed.
      */
     public static String minimizeText(String text) {
-        // TODO: implement
-        return null;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == mostInfrequentLetter) {
+                text = text.substring(0, i) + text.substring(i + 1);
+            }
+        }
+        System.out.println(text + " (with rarest letter removed. This is the FINAL encrypted message.)");
+        return text;
     }
 
     /**
@@ -160,7 +172,7 @@ public class Cryptonator {
      * @return Decrypted text.
      */
     public static String decrypt(String cryptoText, int rotation) {
-        // TODO: implement
+        encrypt(cryptoText, -rotation);
         return null;
     }
 
@@ -210,24 +222,23 @@ public class Cryptonator {
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
-        /**"you too Brutus?" krüpteerituna kasutades nihet 3, oleks: "iye dyy ledec?"
-         Peale krüpteerimist esineb tähti "i", "l", "b", "c" kõik üks kord. "b" on tähestikus kõige eespool,
-         seepärast eemaldatakse tulemusest "b" (algselt "r" täht).
-         */
+        System.out.println("\"iye dyy ledec?\" is the encrypted message. \nThe rotation was 16 and the original message"
+                + "was \"you too Brutus?\"");
+        decrypt("iye dyy ledec?", 16);
 
-        System.out.println("\"you too Brutus?\" (is the plain text - not encrypted message)\n" +
-                "\"iye dyy ledec?\" (is the right outcome with a rotation 16)");
-        encrypt("you too Brutus?", 16);
-
-        System.out.println("\n\"you too Brutus?\" on a rotation 1, should give \n\"xnt snn aqtstr?\"");
-        encrypt("you too Brutus?", 1);
-
-        System.out.println("\nExample when all letters occur only once. And on a high rotation \"Love Hurts\", " +
-                "on a rotation of 40 000");
-        encrypt("Love Hurts", 40000);
-
-        System.out.println("\nAnother example when ALL letters occur TWICE! And only twice! Also testing a negative" +
-                " rotation. \"Couscous\", on a rotation of -1");
-        encrypt("Couscous", -1);
+//        System.out.println("\"you too Brutus?\" (is the plain text - not encrypted message)\n" +
+//                "\"iye dyy ledec?\" (is the right outcome with a rotation 16)");
+//        encrypt("you too Brutus?", 16);
+//
+//        System.out.println("\n\"you too Brutus?\" on a rotation 1, should give \n\"xnt snn aqtstr?\"");
+//        encrypt("you too Brutus?", 1);
+//
+//        System.out.println("\nExample when all letters occur only once. And on a high rotation \"Love Hurts\", " +
+//                "on a rotation of 40 000");
+//        encrypt("Love Hurts", 40000);
+//
+//        System.out.println("\nAnother example when ALL letters occur TWICE! And only twice! Also testing a negative" +
+//                " rotation. \"Couscous\", on a rotation of -1");
+//        encrypt("Couscous", -1);
     }
 }
