@@ -156,7 +156,7 @@ public class Cryptonator {
 
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) != mostInfrequentLetter) { /* if there are at least 2 different letters, IT MAY ONLY THEN
-            REMOVE ONE CHARACTER - this I determined from the tests.. */
+            REMOVE ONE CHARACTER - this I determined from the tests.. I GUESS I MISREAD, THIS WAS ABOUT DECRYPT..*/
                 for (int j = 0; j < text.length(); j++) {
                     if (text.charAt(j) == mostInfrequentLetter) {
                         text = text.substring(0, j) + text.substring(j + 1);
@@ -164,6 +164,7 @@ public class Cryptonator {
                 }
             }
         }
+
         System.out.println(text + " (with rarest letter removed. This is the FINAL encrypted message.)");
         return text;
     }
@@ -227,8 +228,9 @@ public class Cryptonator {
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
-
-        encrypt("woo wee woo wee woooooo mwhaasdijaoidwa", 0);
+    encrypt("ru1ueytmw1", 0);
+        System.out.println("should remove e..");
+//        encrypt("woo wee woo wee woooooo mwhaasdijaoidwa", 0);
         //expects woo wee woo wee woooooo mwaasdijaoidwa
 //        decrypt("a", 0); // works for me, test shows [null]
 
