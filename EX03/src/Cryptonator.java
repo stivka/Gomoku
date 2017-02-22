@@ -57,9 +57,9 @@ public class Cryptonator {
                 encryption += plainText.charAt(c);
             }
         }
-        System.out.println("\n" + encryption + " (with rotation applied)");
+        System.out.println("\n" + encryption + " (with rotation " + rotation + " applied)");
         findMostInfrequentlyOccurringLetter(encryption);
-        return encryption;
+        return encryption; // which can be the encrypted message or the decrypted message.
     }
 
     /**
@@ -222,9 +222,14 @@ public class Cryptonator {
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
-        System.out.println("\"iye dyy ledec?\" is the encrypted message. \nThe rotation was 16 and the original message"
-                + "was \"you too Brutus?\"");
-        decrypt("iye dyy ledec?", 16);
+
+        encrypt("woo wee woo wee woooooo mwhaasdijaoidwa", 0);
+        //expects woo wee woo wee woooooo mwaasdijaoidwa
+//        decrypt("a", 0); // works for me, test shows [null]
+
+        //        System.out.println("\"iye dyy ledec?\" is the encrypted message.
+//        \nThe rotation was 16 and the original message was \"you too Brutus?\"");
+//        decrypt("iye dyy ledec?", 16);
 
 //        System.out.println("\"you too Brutus?\" (is the plain text - not encrypted message)\n" +
 //                "\"iye dyy ledec?\" (is the right outcome with a rotation 16)");
