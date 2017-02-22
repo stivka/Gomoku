@@ -93,6 +93,7 @@ public class Cryptonator {
         for (int k = 0; k < frequency.length; k++) {
             if (frequency[k] > 0 && frequency[k] < minCount) {
                 minCount = frequency[k];
+                mostInfrequentLetter = stringAlphabet.charAt(k);
             /*} else if (frequency[k] < minCount && k == frequency.length - 1) {
                 /* If one letter has occurred at least once, but less times than any other letter from the whole
                  alphabet that has occurred at least once,If one letter has not occurred more than once from the whole alphabet.
@@ -102,12 +103,12 @@ public class Cryptonator {
 
         }
         // This cycle returns the first character in alphabetical order, that occurs the least.
-        for (int l = 0; l < frequency.length; l++) {
+        /*for (int l = 0; l < frequency.length; l++) {
             if (frequency[l] == minCount) {
                 mostInfrequentLetter = stringAlphabet.charAt(l);
                 break;
             }
-        }
+        }*/
         System.out.println("\nMost infrequent char in the order of the alphabet is: " + mostInfrequentLetter);
         minimizeText(text);
         return mostInfrequentLetter;
