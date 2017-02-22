@@ -91,16 +91,13 @@ public class Cryptonator {
            doesn't hurt" - then we already get letters like o, e and t, that occur more than once, leaving us with the
            distinction that there are letters, which on the other hand, occur only once.*/
         for (int k = 0; k < frequency.length; k++) {
-            if (frequency[k] > 0 && frequency[k] <= minCount) {
+            if (frequency[k] > 0 && frequency[k] < minCount) {
                 minCount = frequency[k];
-                break;
-            } else if (frequency[k] < minCount && k == frequency.length - 1) {
+            /*} else if (frequency[k] < minCount && k == frequency.length - 1) {
                 /* If one letter has occurred at least once, but less times than any other letter from the whole
                  alphabet that has occurred at least once,If one letter has not occurred more than once from the whole alphabet.
-
-                */
                 System.out.println("\nAll chars occur only once. There isn't a least frequent char.");
-                return 0;
+                return 0; */
             }
 
         }
