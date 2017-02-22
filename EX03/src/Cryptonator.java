@@ -228,8 +228,17 @@ public class Cryptonator {
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
-    encrypt("ru1ueytmw1", 0);
-        System.out.println("should remove e..");
+
+        findMostInfrequentlyOccurringLetter("7 a3v-o1dp");
+        System.out.println("string to minimize is \"7 a3v-o1dp\" ");
+        /*FAILURE: testMinimizeRandom10
+        1 msecs, unit test weight: 1 units
+        Exception type: class java.lang.AssertionError
+        Detailed information:  expected [7 3v-o1dp] but found [7 c3-o1dp] */
+
+        //    encrypt("ru1ueytmw1", 0);
+//        System.out.println("should remove e..");
+
 //        encrypt("woo wee woo wee woooooo mwhaasdijaoidwa", 0);
         //expects woo wee woo wee woooooo mwaasdijaoidwa
 //        decrypt("a", 0); // works for me, test shows [null]
