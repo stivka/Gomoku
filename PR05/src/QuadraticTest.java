@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static java.lang.Double.NaN;
 import static org.junit.Assert.*;
 
 
@@ -42,7 +43,7 @@ public class QuadraticTest {
     @Test
     public void sth() {
         double[] x = Quadratic.solve(0, 0, 0);
-        assertEquals(0, x[0], 0.001);
+        assertEquals(NaN, x[0], 0.001);
 
 
     }
