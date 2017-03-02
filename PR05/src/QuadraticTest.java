@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static java.lang.Double.NaN;
+import static java.lang.Double.isNaN;
 import static org.junit.Assert.*;
 
 
@@ -40,11 +40,9 @@ public class QuadraticTest {
         predetermined to the single solution value in the array. */
     }
 
-    /*@Test
+    @Test
     public void sth() {
         double[] x = Quadratic.solve(0, 0, 0);
-        assertEquals(NaN, x[0], 0.001);
-
-
-    }*/
+        assertEquals(Double.NaN, x[0], 0.001);
+    }
 }
