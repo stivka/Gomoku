@@ -32,8 +32,18 @@ public class QuadraticTest {
 
     @Test
     public void testQuadraticCoefficientEqualsZero() {
-        double[] x = Quadratic.solve(0,2,3);
-        assertEquals(1, x.length);
-        assertEquals(-1.5, x[0], 0.001);
+        double[] x = Quadratic.solve(0, 2, 3);
+        assertEquals(1, x.length); /* Checks to see that there is one solution. Compare the expected count value
+        of 1 to the actual, which it gets by counting the actual length of the array where the solutions are. */
+        assertEquals(-1.5, x[0], 0.001); /* Compares the expected value of -1.5 which has been manually
+        predetermined to the single solution value in the array. */
+    }
+
+    @Test
+    public void sth() {
+        double[] x = Quadratic.solve(0, 0, 0);
+        assertEquals(0, x[0], 0.001);
+
+
     }
 }

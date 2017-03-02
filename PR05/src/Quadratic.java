@@ -36,5 +36,7 @@ public class Quadratic {
         System.out.println(Arrays.toString(solve(-1, 2, 3)));
         System.out.println("0*x^2 + 2x + 3 = 0");
         System.out.println(Arrays.toString(solve(0, 2, 3)));
+        System.out.println("0*x^2 + 0x + 0");
+        System.out.println(Arrays.toString(solve(0, 0, 0)));
     }
 }
