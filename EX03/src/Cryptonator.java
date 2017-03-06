@@ -20,6 +20,7 @@ public class Cryptonator {
      * @return encrypted text
      */
     public static String encrypt(String plainText, int rotation) {
+        rotation = -rotation;
         String encryption = "";
 //        char mostInfrequentChar = 'a';
         int index = 0;
