@@ -43,7 +43,7 @@ public class Cryptonator {
                 newIndexInAlphabet = ((STRING_ALPHABET.indexOf((plainText.toLowerCase()).charAt(c))
                         + (rotation % NUM_LETTERS_ALPHABET)) % NUM_LETTERS_ALPHABET);
                 if (newIndexInAlphabet < 0) { // for decryption, when rotation goes negative.
-                    encryption += STRING_ALPHABET.charAt(newIndexInAlphabet);
+                    encryption += STRING_ALPHABET.charAt(NUM_LETTERS_ALPHABET + newIndexInAlphabet);
                 }
                 else {
                     encryption += STRING_ALPHABET.charAt(newIndexInAlphabet);
@@ -154,7 +154,7 @@ public class Cryptonator {
      * @return Decrypted text.
      */
     public static String decrypt(String cryptoText, int rotation) {
-        return encrypt(cryptoText, rotation);
+        return encrypt(cryptoText, -rotation);
     }
 
     /**
