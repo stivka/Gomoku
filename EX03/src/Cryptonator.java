@@ -1,6 +1,7 @@
 /**
  * Created by Stiv on 14/02/2017.
  */
+import java.util.ArrayList;
 public class Cryptonator {
     /**
      * Alphabet string with indexes of 0 to 25 that means there's 26 letters in the English alphabet.
@@ -147,7 +148,7 @@ public class Cryptonator {
         char mostInfrequentLetter = findMostInfrequentlyOccurringLetter(text);
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) == mostInfrequentLetter) {
-                text = text.substring(0, i) + text.substring(i + 1);
+                text = text.replace(String.valueOf(mostInfrequentLetter), "");
             }
         }
         System.out.println(text + " (with rarest letter removed. This is the FINAL encrypted message.)");
@@ -212,7 +213,8 @@ public class Cryptonator {
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
-
+        minimizeText("aa");
+        System.out.println("aa minimized should be []");
         minimizeText("7 a3v-o1dp");
         System.out.println("string to minimize is \"7 a3v-o1dp\" ");
         /*FAILURE: testMinimizeRandom10
