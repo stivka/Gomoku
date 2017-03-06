@@ -54,8 +54,8 @@ public class Cryptonator {
         }
         System.out.println("\n" + encryption + " (is the text encrypted with rotation " + rotation + " applied, " +
                 "without any minimization)");
-        minimizeText(encryption);
-        return encryption; // which can be the encrypted message or the decrypted message.
+        // which can be the encrypted message or the decrypted message.
+        return minimizeText(encryption);
     }
 
     /**
