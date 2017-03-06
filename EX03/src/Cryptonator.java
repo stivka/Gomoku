@@ -146,13 +146,8 @@ public class Cryptonator {
     public static String minimizeText(String text) {
         char mostInfrequentLetter = findMostInfrequentlyOccurringLetter(text);
         for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) != mostInfrequentLetter) { /* if there are at least 2 different letters, IT MAY ONLY THEN
-            REMOVE ONE CHARACTER - this I determined from the tests.. I GUESS I MISREAD, THIS WAS ABOUT DECRYPT..*/
-                for (int j = 0; j < text.length(); j++) {
-                    if (text.charAt(j) == mostInfrequentLetter) {
-                        text = text.substring(0, j) + text.substring(j + 1);
-                    }
-                }
+            if (text.charAt(i) == mostInfrequentLetter) {
+                text = text.substring(0, i) + text.substring(i + 1);
             }
         }
         System.out.println(text + " (with rarest letter removed. This is the FINAL encrypted message.)");
