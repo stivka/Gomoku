@@ -57,7 +57,8 @@ public class Cryptonator {
                 encryption += plainText.charAt(c);
             }
         }
-        System.out.println("\n" + encryption + " (with rotation " + rotation + " applied)");
+        System.out.println("\n" + encryption + " (is the text encrypted with rotation " + rotation + " applied, " +
+                "without any minimization)");
         minimizeText(encryption);
         return encryption; // which can be the encrypted message or the decrypted message.
     }
@@ -158,7 +159,7 @@ public class Cryptonator {
      * @return Decrypted text.
      */
     public static String decrypt(String cryptoText, int rotation) {
-        return encrypt(cryptoText, -rotation);
+        return encrypt(cryptoText, rotation);
     }
 
     /**
@@ -207,27 +208,28 @@ public class Cryptonator {
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
-encrypt("aabbaa7", 10);
-        //        encrypt("aa", 10);
+        decrypt("abcd", 2);
+//encrypt("aabbaa7", 10);
+//                encrypt("aa", 10);
 //        System.out.println("aa minimized should be []");
 //        minimizeText("7 a3v-o1dp");
 //        System.out.println("string to minimize is \"7 a3v-o1dp\" ");
-        /*FAILURE: testMinimizeRandom10
-        1 msecs, unit test weight: 1 units
-        Exception type: class java.lang.AssertionError
-        Detailed information:  expected [7 3v-o1dp] but found [7 c3-o1dp] */
-
-        //    encrypt("ru1ueytmw1", 0);
+//        /*FAILURE: testMinimizeRandom10
+//        1 msecs, unit test weight: 1 units
+//        Exception type: class java.lang.AssertionError
+//        Detailed information:  expected [7 3v-o1dp] but found [7 c3-o1dp] */
+//
+//            encrypt("ru1ueytmw1", 0);
 //        System.out.println("should remove e..");
-
+//
 //        encrypt("woo wee woo wee woooooo mwhaasdijaoidwa", 0);
-        //expects woo wee woo wee woooooo mwaasdijaoidwa
+//        System.out.println("expects woo wee woo wee woooooo mwaasdijaoidwa");
 //        decrypt("a", 0); // works for me, test shows [null]
-
-        //        System.out.println("\"iye dyy ledec?\" is the encrypted message.
-//        \nThe rotation was 16 and the original message was \"you too Brutus?\"");
+//
+//        System.out.println("\"iye dyy ledec?\" is the encrypted message. " +
+//                "+\nThe rotation was 16 and the original message was \"you too Brutus?\"");
 //        decrypt("iye dyy ledec?", 16);
-
+//
 //        System.out.println("\"you too Brutus?\" (is the plain text - not encrypted message)\n" +
 //                "\"iye dyy ledec?\" (is the right outcome with a rotation 16)");
 //        encrypt("you too Brutus?", 16);
