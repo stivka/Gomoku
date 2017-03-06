@@ -146,11 +146,7 @@ public class Cryptonator {
      */
     public static String minimizeText(String text) {
         char mostInfrequentLetter = findMostInfrequentlyOccurringLetter(text);
-        for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) == mostInfrequentLetter) {
-                text = text.replace(String.valueOf(mostInfrequentLetter), "");
-            }
-        }
+        text = text.replaceAll(String.valueOf(mostInfrequentLetter), "");
         System.out.println(text + " (with rarest letter removed. This is the FINAL encrypted message.)");
         return text;
     }
@@ -213,7 +209,7 @@ public class Cryptonator {
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
-        minimizeText("aa");
+        encrypt("aa", 10);
         System.out.println("aa minimized should be []");
         minimizeText("7 a3v-o1dp");
         System.out.println("string to minimize is \"7 a3v-o1dp\" ");
