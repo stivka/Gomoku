@@ -1,7 +1,6 @@
 /**
  * Created by Stiv on 14/02/2017.
  */
-import java.util.ArrayList;
 public class Cryptonator {
     /**
      * Alphabet string with indexes of 0 to 25 that means there's 26 letters in the English alphabet.
@@ -77,21 +76,32 @@ public class Cryptonator {
          */
 
     public static char findMostInfrequentlyOccurringLetter(String text) {
+        if (text == null) {
+            return '\u0000';
+        }
+        if (text.equals("")) {
+            return '\u0000';
+        }
         int[] frequency = new int[NUM_LETTERS_ALPHABET];
         char mostInfrequentLetter = 'a';
         int minCount = text.length() + 1; /* count of the smallest value that a letter occurs so far. Set at maximum
         value, which is that all characters of that string are that letter, plus one, so that .*/
         System.out.println("Down below are shown the occurrence counts of letters.");
         // This cycle counts every occurrence of every letter.
+        boolean containLetter = false;
         for (int i = 0; i < text.length(); i++) {
             if (Character.isLetter(text.charAt(i))) {
+                containLetter = true;
                 frequency[STRING_ALPHABET.indexOf(text.charAt(i))] += 1;
             }
         }
-        // This cycle prints how many counts there are per letter's position in the alphabet.
-        for (int j = 0; j < frequency.length; j++) {
-            System.out.print(frequency[j] + " ");
+        if (!containLetter) {
+            return '\u0000';
         }
+            // This cycle prints how many counts there are per letter's position in the alphabet.
+            for (int j = 0; j < frequency.length; j++) {
+                System.out.print(frequency[j] + " ");
+            }
         /* In this loop it is checked whether there is one letter that occurs more than others. This is necessary
            to determine that there even is a most infrequently occurring letter, because if all letters occur only once
            like for example "Love hurts" - then there can't be a most infrequent letter. But if the message was "Love
