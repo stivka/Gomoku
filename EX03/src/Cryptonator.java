@@ -29,12 +29,10 @@ public class Cryptonator {
         if (plainText.equals("")) {
             return "";
         }
-
         plainText.toLowerCase();
         System.out.println((plainText.toLowerCase() + " (.. in lowercase)"));
-
+        System.out.println("Down below is the text re-written in indexes, and omitting anything but letters.");
         for (int c = 0; c < plainText.length(); c++) {
-//            System.out.print(STRING_ALPHABET.indexOf(c));
             if (Character.isLetter(plainText.charAt(c))) {
                 /* perfect! index equals to the lowercase character index number in accordance to the alphabet string.
                 the rotation is also applied, which is divided by modulus to eliminate whole cycles - from a (index  0)
@@ -48,7 +46,7 @@ public class Cryptonator {
                     index = NUM_LETTERS_ALPHABET + index; // a, rotation 1 -> 26 + (-1) = 25, 25 = z (by index)
                     encryption += STRING_ALPHABET.charAt(index);
                 }
-                if (index >= NUM_LETTERS_ALPHABET) { // for negative rotations.
+                else if (index >= NUM_LETTERS_ALPHABET) { // for negative rotations.
                     index = 0 + (index - NUM_LETTERS_ALPHABET);
                     encryption += STRING_ALPHABET.charAt(index);
                 }
@@ -209,10 +207,11 @@ public class Cryptonator {
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
-        encrypt("aa", 10);
-        System.out.println("aa minimized should be []");
-        minimizeText("7 a3v-o1dp");
-        System.out.println("string to minimize is \"7 a3v-o1dp\" ");
+encrypt("aabbaa7", 10);
+        //        encrypt("aa", 10);
+//        System.out.println("aa minimized should be []");
+//        minimizeText("7 a3v-o1dp");
+//        System.out.println("string to minimize is \"7 a3v-o1dp\" ");
         /*FAILURE: testMinimizeRandom10
         1 msecs, unit test weight: 1 units
         Exception type: class java.lang.AssertionError
