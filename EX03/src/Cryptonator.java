@@ -20,6 +20,7 @@ public class Cryptonator {
      */
     public static String encrypt(String plainText, int rotation) {
         String encryption = "";
+//        char mostInfrequentChar = 'a';
         int index = 0;
         if (plainText == null) {
             return null;
@@ -58,6 +59,7 @@ public class Cryptonator {
             }
         }
         System.out.println("\n" + encryption + " (with rotation " + rotation + " applied)");
+        minimizeText(encryption);
         return encryption; // which can be the encrypted message or the decrypted message.
     }
 
@@ -143,7 +145,6 @@ public class Cryptonator {
      */
     public static String minimizeText(String text) {
         char mostInfrequentLetter = findMostInfrequentlyOccurringLetter(text);
-
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) != mostInfrequentLetter) { /* if there are at least 2 different letters, IT MAY ONLY THEN
             REMOVE ONE CHARACTER - this I determined from the tests.. I GUESS I MISREAD, THIS WAS ABOUT DECRYPT..*/
@@ -154,7 +155,6 @@ public class Cryptonator {
                 }
             }
         }
-
         System.out.println(text + " (with rarest letter removed. This is the FINAL encrypted message.)");
         return text;
     }
