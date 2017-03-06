@@ -20,6 +20,15 @@ public class Cryptonator {
      * @return encrypted text
      */
     public static String encrypt(String plainText, int rotation) {
+        // Detects if the method was called out by decrypt, in which case the minimize method shall not be called upon.
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        boolean decrypt = false;
+        for (int i = 0; i < stackTraceElements.length; i++) {
+            if (stackTraceElements[i].getMethodName() == "decrypt") {
+                decrypt = true;
+            }
+        }
+        System.out.println(stackTraceElements);
         String encryption = "";
 //        char mostInfrequentChar = 'a';
         int newIndexInAlphabet = 0;
@@ -44,8 +53,7 @@ public class Cryptonator {
                         + (rotation % NUM_LETTERS_ALPHABET)) % NUM_LETTERS_ALPHABET);
                 if (newIndexInAlphabet < 0) { // for decryption, when rotation goes negative.
                     encryption += STRING_ALPHABET.charAt(NUM_LETTERS_ALPHABET + newIndexInAlphabet);
-                }
-                else {
+                } else {
                     encryption += STRING_ALPHABET.charAt(newIndexInAlphabet);
                 }
             } else {
@@ -55,15 +63,19 @@ public class Cryptonator {
         System.out.println("\n" + encryption + " (is the text encrypted with rotation " + rotation + " applied, " +
                 "without any minimization)");
         // which can be the encrypted message or the decrypted message.
+        if (decrypt) {
+            return encryption;
+        }
         return minimizeText(encryption);
-    }
+        }
 
-    /**
-     * Finds the most infrequently occurring letter in text.
-     * @param text either plain or encrypted text.
-     * @return the most infrequently occurring letter in text.
-     * If there is no such letter, return 0.
-     */
+        /**
+         * Finds the most infrequently occurring letter in text.
+         * @param text either plain or encrypted text.
+         * @return the most infrequently occurring letter in text.
+         * If there is no such letter, return 0.
+         */
+
     public static char findMostInfrequentlyOccurringLetter(String text) {
         int[] frequency = new int[NUM_LETTERS_ALPHABET];
         char mostInfrequentLetter = 'a';
