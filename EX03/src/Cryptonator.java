@@ -58,7 +58,6 @@ public class Cryptonator {
             }
         }
         System.out.println("\n" + encryption + " (with rotation " + rotation + " applied)");
-        findMostInfrequentlyOccurringLetter(encryption);
         return encryption; // which can be the encrypted message or the decrypted message.
     }
 
@@ -101,15 +100,7 @@ public class Cryptonator {
             }
 
         }
-        // This cycle returns the first character in alphabetical order, that occurs the least.
-        /*for (int l = 0; l < frequency.length; l++) {
-            if (frequency[l] == minCount) {
-                mostInfrequentLetter = STRING_ALPHABET.charAt(l);
-                break;
-            }
-        }*/
         System.out.println("\nMost infrequent char in the order of the alphabet is: " + mostInfrequentLetter);
-        minimizeText(text);
         return mostInfrequentLetter;
     }
 
@@ -177,8 +168,7 @@ public class Cryptonator {
      * @return Decrypted text.
      */
     public static String decrypt(String cryptoText, int rotation) {
-        encrypt(cryptoText, -rotation);
-        return null;
+        return encrypt(cryptoText, -rotation);
     }
 
     /**
@@ -228,7 +218,7 @@ public class Cryptonator {
      */
     public static void main(String[] args) {
 
-        findMostInfrequentlyOccurringLetter("7 a3v-o1dp");
+        minimizeText("7 a3v-o1dp");
         System.out.println("string to minimize is \"7 a3v-o1dp\" ");
         /*FAILURE: testMinimizeRandom10
         1 msecs, unit test weight: 1 units
