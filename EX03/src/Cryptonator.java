@@ -1,3 +1,4 @@
+
 /**
  * Created by Stiv on 14/02/2017.
  */
@@ -61,8 +62,8 @@ public class Cryptonator {
                 encryption += plainText.charAt(c);
             }
         }
-        System.out.println("\n" + encryption + " (is the text encrypted with rotation " + rotation + " applied, " +
-                "without any minimization)");
+        System.out.println("\n" + encryption + " (is the text encrypted with rotation " + rotation + " applied, "
+                + "without any minimization)");
         // which can be the encrypted message or the decrypted message.
         if (decrypt) {
             return encryption;
@@ -116,7 +117,8 @@ public class Cryptonator {
                 mostInfrequentLetter = STRING_ALPHABET.charAt(k);
             /*} else if (frequency[k] < minCount && k == frequency.length - 1) {
                 /* If one letter has occurred at least once, but less times than any other letter from the whole
-                 alphabet that has occurred at least once,If one letter has not occurred more than once from the whole alphabet.
+                 alphabet that has occurred at least once,If one letter has not occurred more than once from the whole
+                 alphabet.
                 System.out.println("\nAll chars occur only once. There isn't a least frequent char.");
                 return 0; */
             }
