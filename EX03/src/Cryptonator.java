@@ -161,6 +161,9 @@ public class Cryptonator {
      * @return text in which the rarest letter has been removed.
      */
     public static String minimizeText(String text) {
+        if (text == null) {
+            return null;
+        }
         char mostInfrequentLetter = findMostInfrequentlyOccurringLetter(text);
         text = text.replaceAll(String.valueOf(mostInfrequentLetter), "");
         System.out.println(text + " (with rarest letter removed. This is the FINAL encrypted message.)");
