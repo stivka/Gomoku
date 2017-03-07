@@ -13,9 +13,10 @@ public class Cryptonator {
 
     /**
      * Given text and a rotation, encrypts text.
+     *
      * @param plainText plain text, readable by humans
      *                  with relative ease.
-     * @param rotation the number of steps in alphabetical order, a letter will be changed in value.
+     * @param rotation  the number of steps in alphabetical order, a letter will be changed in value.
      * @return encrypted text
      */
     public static String encrypt(String plainText, int rotation) {
@@ -42,10 +43,11 @@ public class Cryptonator {
         System.out.println("Down below is the text re-written in indexes, and omitting anything but letters.");
         for (int c = 0; c < plainText.length(); c++) {
             if (Character.isLetter(plainText.charAt(c))) {
-                /* perfect! newIndexInAlphabet equals to the lowercase character newIndexInAlphabet number in accordance to the alphabet string.
-                the rotation is also applied, which is divided by modulus to eliminate whole cycles - from a (newIndexInAlphabet  0)
-                - 27 should do one cycle and - 1, landing on z. Which divided with modulus would give (27 % 26 = 1) a
-                plain 1, implying that the operation merely be - 1.
+                /* perfect! newIndexInAlphabet equals to the lowercase character newIndexInAlphabet number in
+                accordance to the alphabet string. the rotation is also applied, which is divided by modulus to
+                eliminate whole cycles - from a (newIndexInAlphabet  0) - 27 should do one cycle and - 1, landing
+                on z. Which divided with modulus would give (27 % 26 = 1) a plain 1, implying that the operation
+                merely be - 1.
                 */
                 System.out.print(STRING_ALPHABET.indexOf((plainText.toLowerCase()).charAt(c)) + " ");
                 newIndexInAlphabet = ((STRING_ALPHABET.indexOf((plainText.toLowerCase()).charAt(c))
@@ -66,14 +68,15 @@ public class Cryptonator {
             return encryption;
         }
         return minimizeText(encryption);
-        }
+    }
 
-        /**
-         * Finds the most infrequently occurring letter in text.
-         * @param text either plain or encrypted text.
-         * @return the most infrequently occurring letter in text.
-         * If there is no such letter, return 0.
-         */
+    /**
+     * Finds the most infrequently occurring letter in text.
+     *
+     * @param text either plain or encrypted text.
+     * @return the most infrequently occurring letter in text.
+     * If there is no such letter, return 0.
+     */
 
     public static char findMostInfrequentlyOccurringLetter(String text) {
         if (text == null) {
@@ -98,10 +101,10 @@ public class Cryptonator {
         if (!containLetter) {
             return '\u0000';
         }
-            // This cycle prints how many counts there are per letter's position in the alphabet.
-            for (int j = 0; j < frequency.length; j++) {
-                System.out.print(frequency[j] + " ");
-            }
+        // This cycle prints how many counts there are per letter's position in the alphabet.
+        for (int j = 0; j < frequency.length; j++) {
+            System.out.print(frequency[j] + " ");
+        }
         /* In this loop it is checked whether there is one letter that occurs more than others. This is necessary
            to determine that there even is a most infrequently occurring letter, because if all letters occur only once
            like for example "Love hurts" - then there can't be a most infrequent letter. But if the message was "Love
@@ -125,6 +128,7 @@ public class Cryptonator {
 
     /**
      * By mistake created this method for finding the most FREQUENTLY, not infrequently, occurring character.
+     *
      * @param text is the encrypted string.
      * @return the most frequently occurring character or 0 if all characters occur only once.
      */
@@ -157,6 +161,7 @@ public class Cryptonator {
 
     /**
      * Removes the most infrequent letter from text.
+     *
      * @param text either plain or encrypted text.
      * @return text in which the rarest letter has been removed.
      */
@@ -173,9 +178,10 @@ public class Cryptonator {
     /**
      * Given the initial rotation and the encrypted text, this method
      * decrypts said text.
+     *
      * @param cryptoText Encrypted text.
-     * @param rotation How many letters to the right the alphabet was
-     *                 shifted in order to encrypt text.
+     * @param rotation   How many letters to the right the alphabet was
+     *                   shifted in order to encrypt text.
      * @return Decrypted text.
      */
     public static String decrypt(String cryptoText, int rotation) {
@@ -184,39 +190,39 @@ public class Cryptonator {
 
     /**
      * NB! This is a bonus task.
-     *
+     * <p>
      * Given the crypted message and words in dictionary,
      * find the original message with the highest score.
      * Returns the best score.
-     *
+     * <p>
      * The score is calculated as follows:
      * - the message is decrypted, the abs(rotation) used
      * is taken off from the score (the smaller the rotation,
      * the better the score).
      * Note: the rotation can also be negative.
-     *
+     * <p>
      * - in the decrypted message, each word existing in the dictionary
      * adds the score which is equal to the letters in the word in dictionary.
-     *
+     * <p>
      * Score = sum([w.length for w in dictionary and w in decrypted message]) - rotation used
-     *
+     * <p>
      * Example:
      * message "aaa abc"
      * dictionary: {"bbb", "ccc"}
-     *
+     * <p>
      * When using rotation 25, we get: "bbb bcd"
      * We would get the same when using -1: "bbb bcd"
      * The score for -1 rotation would be: 3 - 1 = 2
      * 3 is the length of matching word "bbb".
      * 1 is abs(rotation) = abs(-1)
-     *
+     * <p>
      * When rotating using -2, we would get "ccc cde"
      * The score: 3 - 2 = 1.
-     *
+     * <p>
      * So, the best score is 2.
      *
      * @param cryptedMessage Crypted message.
-     * @param dictionary Dictionary of possible words.
+     * @param dictionary     Dictionary of possible words.
      * @return The best score for original message.
      */
     public static int getDecryptionScore(String cryptedMessage, String[] dictionary) {
@@ -225,6 +231,7 @@ public class Cryptonator {
 
     /**
      * The main method, which is the entry point of the program.
+     *
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
