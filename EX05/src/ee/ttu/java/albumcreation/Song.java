@@ -1,9 +1,16 @@
 package ee.ttu.java.albumcreation;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
  * Created by Stiv on 08/03/2017.
+ * Laulul peavad olema määratud pealkiri, vähemalt üks autor ning see
+ peab olema aktsepteeritava pikkusega
  */
 public class Song { //Klassi konstruktor
     /**
@@ -19,11 +26,21 @@ public class Song { //Klassi konstruktor
     /**
      *
      */
-    private String length;
+    private String length; // does it have to be set to null, for it to be null by default.
 
+    /**
+     * Laulul peavad olema määratud pealkiri, vähemalt üks autor ning see peab olema aktsepteeritava pikkusega
+     */
     public void isReady() {
+        if (authors.size() > 0 && title.length() > 0) {
+            return;
+        }
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setTitle(String s) {
         this.title = s;
     }
@@ -38,32 +55,32 @@ public class Song { //Klassi konstruktor
      * @param s sth like "02:43"
      */
     public void setLength(String s) {
-        int colonCount = 0;
-        int otherThanDigitOrColon = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == ':') {
-                colonCount++;
-            }
-            else if (!Character.isDigit(s.charAt(i))) {
-                otherThanDigitOrColon++;
-            }
+        DateFormat sdf = new SimpleDateFormat("mm:ss");
+        sdf.setLenient(false); // this should make it so, that strings which don't fit the pattern, are rejected.
+        Date timeFromDate = null;
+        try {
+            timeFromDate = sdf.parse(s);
+            s = sdf.format(timeFromDate);
+            System.out.println("Song length: " + s);
+            this.length = s;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        /* if there's only one colon and nothing other tha digits*/
-        if (colonCount == 1 && otherThanDigitOrColon == 0) {
-
-        }
-        if (s.length() == 3 && s.charAt(1) == ':') {
-
-        }
-        this.length = s;
     }
 
+    /**
+     *
+     * @param me string
+     */
     public void addAuthor(String me) {
+        authors.add(me);
     }
 
+    /**
+     *
+     * @param s
+     */
     public void removeAuthor(String s) {
+        authors.remove(s);
     }
-/* Laulul peavad olema määratud pealkiri, vähemalt üks autor ning see
-peab olema aktsepteeritava pikkusega */
-
 }

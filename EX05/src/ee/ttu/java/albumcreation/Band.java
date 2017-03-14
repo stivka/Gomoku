@@ -29,6 +29,11 @@ public class Band {
         song2.setLength("9:18");
         song2.addAuthor("Me");
 
+        Song wrongSong = new Song();
+        wrongSong.setTitle("Bom Diggity");
+        wrongSong.setLength("3:2");
+        wrongSong.addAuthor("Darkness");
+
         Album album1 = new Album();
         album1.setTitle("Album1");
         album1.setGenre("pop");

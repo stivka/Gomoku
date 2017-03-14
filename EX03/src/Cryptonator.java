@@ -237,7 +237,8 @@ public class Cryptonator {
      * @param args Arguments from the command line
      */
     public static void main(String[] args) {
-        decrypt("abcd", 2);
+        encrypt("ZZZZ51340.:", 27);
+        //        decrypt("abcd", 2);
 //encrypt("aabbaa7", 10);
 //                encrypt("aa", 10);
 //        System.out.println("aa minimized should be []");
