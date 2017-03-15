@@ -1,6 +1,7 @@
 package ee.ttu.java.albumcreation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,13 +14,12 @@ public class Album extends Song { //Klassi konstruktor
      *
      */
     private String title;
-//    List trackListing //list, kus hoitakse Song tüüpi objekte
     /**
      *
      */
     private String genre;
     /**
-     *
+     * List trackListing. list, kus hoitakse Song tüüpi objekte.
      */
     private List<Song> trackListing = new ArrayList<Song>();
 
@@ -31,16 +31,18 @@ public class Album extends Song { //Klassi konstruktor
         trackListing.remove(song);
 
     }
-
     /**
-     *
-     * @return
+     *Albumi saab avaldada alles siis, kui seal on vähemalt 5 laulu ja kestab kauem vähemalt 25 minutit. Albumil peab
+     * olema määratud ka nimi ja žanr. Kõik albumil olevad lood peavad olema valmis.
+     * @return true or false
      */
     public boolean release() {
+        for (int i = 0; i < trackListing.size(); i++) {
+            System.out.println(trackListing.get(i));
+        };
+//        if (trackListing.size() > 4 && )
         return true;
-    } //Albumi saab avaldada alles siis, kui seal on vähemalt 5 laulu ja kestab kauem vähemalt 25 minutit. Albumil peab
-    // olema määratud ka nimi ja žanr. Kõik albumil olevad lood peavad olema valmis.
-
+    }
     /**
      *
      * @param album1 lalalaa
@@ -59,9 +61,9 @@ public class Album extends Song { //Klassi konstruktor
 
     /**
      *
-     * @param song1 sth
+     * @param song sth
      */
-    public void addSong(Song song1) {
-        trackListing.add(song1);
+    public void addSong(Song song) {
+        trackListing.add(song);
     }
 }

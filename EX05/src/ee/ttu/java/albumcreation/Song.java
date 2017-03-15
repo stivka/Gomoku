@@ -3,8 +3,6 @@ package ee.ttu.java.albumcreation;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -31,18 +29,28 @@ public class Song { //Klassi konstruktor
     /**
      * Laulul peavad olema määratud pealkiri, vähemalt üks autor ning see peab olema aktsepteeritava pikkusega
      */
-    public void isReady() {
-        if (authors.size() > 0 && title.length() > 0) {
-            return;
-        }
+    public boolean isReady() {
+        return !(authors.size() <= 0 || title.length() <= 0); // is this correct. auto suggestion..
     }
 
     /**
      *
-     * @param s
+     * @param s bla bla
      */
     public void setTitle(String s) {
         this.title = s;
+    }
+    @Override
+    public String toString() {
+        return title;
+    }
+
+    /**
+     *
+     * @return title
+     */
+    public String getTitle() {
+        return title;
     }
 
     /**
@@ -66,6 +74,15 @@ public class Song { //Klassi konstruktor
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+    }
+
+    /**
+     *
+     * @return length
+     */
+    public String getLength() {
+        return length;
     }
 
     /**
@@ -78,7 +95,7 @@ public class Song { //Klassi konstruktor
 
     /**
      *
-     * @param s
+     * @param s bla bla
      */
     public void removeAuthor(String s) {
         authors.remove(s);
