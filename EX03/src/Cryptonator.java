@@ -29,6 +29,33 @@ public class Cryptonator {
                 decrypt = true;
             }
         }
+        for (StackTraceElement elements:stackTraceElements) {
+            System.out.println(elements);
+            if (elements.getMethodName() == "decrypt") {
+                decrypt = true;
+        }
+        
+        
+        
+        
+        String[] stringlist = {"smeggens", "jebbedu", "ubens"};
+        for (int i = 0; i < stringlist.length; i++){
+            System.out.println(stringlist[i]);
+        }
+
+        for (String string:stringlist) {
+            System.out.println(string);
+        }
+        
+        
+        
+        
+        
+        for (StackTraceElement element:stackTraceElements) {
+            if (element.getMethodName() == "decrypt") {
+                decrypt = true;
+            }
+        }
         System.out.println(stackTraceElements);
         String encryption = "";
 //        char mostInfrequentChar = 'a';

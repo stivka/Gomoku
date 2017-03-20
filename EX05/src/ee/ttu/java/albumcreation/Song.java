@@ -1,9 +1,11 @@
 package ee.ttu.java.albumcreation;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
+
+import static java.lang.Integer.valueOf;
 
 /**
  * Created by Stiv on 08/03/2017.
@@ -13,8 +15,32 @@ import java.util.*;
 public class Song { //Klassi konstruktor
     /**
      *
+     * @param s length
+     * @return
+     */
+    public Duration parse(String s) {
+        int colonIndex = s.indexOf(':');
+        String mm = s.substring(0, colonIndex);
+        String ss = s.substring(colonIndex + 1);
+        Duration duration = Duration.ofMinutes(valueOf(mm)).plusSeconds(valueOf(ss));
+        long seconds = duration.getSeconds();
+        System.out.println(String.format("%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, (seconds % 60)));
+        return duration;
+    }
+
+//    public static DateFormat sdf = new SimpleDateFormat("mm:ss");
+    /**
+     *
+     */
+//    String bestFormat.format(DateTimeFormatter.ofPattern("mm:ss");
+    /**
+     *
      */
     private String title;
+    /**
+     *
+     */
+//    private Duration duration;
     /**
      *
      */
@@ -40,17 +66,16 @@ public class Song { //Klassi konstruktor
     public void setTitle(String s) {
         this.title = s;
     }
-    @Override
-    public String toString() {
-        return title;
-    }
-
+//    @Override
+//    public String toString() {
+//        return title; // what is this override for? It helps me print with for loop.
+//    }
     /**
      *
      * @return title
      */
-    public String getTitle() {
-        return title;
+    public String getTitle(){
+            return title;
     }
 
     /**
@@ -63,25 +88,35 @@ public class Song { //Klassi konstruktor
      * @param s sth like "02:43"
      */
     public void setLength(String s) {
-        DateFormat sdf = new SimpleDateFormat("mm:ss");
-        sdf.setLenient(false); // this should make it so, that strings which don't fit the pattern, are rejected.
-        Date timeFromDate = null;
-        try {
-            timeFromDate = sdf.parse(s);
-            s = sdf.format(timeFromDate);
-            System.out.println("Song length: " + s);
-            this.length = s;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        this.length = String.valueOf(parse(s));
 
+//        DateFormat sdf = new SimpleDateFormat("mm:ss");
+//        sdf.setLenient(false); // this should make it so, that strings which don't fit the pattern, are rejected.
+//        Date timeFromDate = null;
+//        try {
+//            timeFromDate = sdf.parse(s);
+//            s = sdf.format(timeFromDate);
+////            System.out.println("Song length: " + s);
+//            this.length = s;
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        Duration duration;
+//        String[] fields = s.split(":");
+//        System.out.println(Duration.parse(String.format("P%dM%sS", fields[0], fields[1])));
+//        System.out.println(duration);
+//        DateTimeFormatter bestFormatter = DateTimeFormatter.ofPattern("mm:ss");
+//        duration = bestFormatter.parse(s);
+//        System.out.println(duration);
+//        String.format(s, bestFormatter);
+//        System.out.println(s);
     }
-
     /**
      *
      * @return length
      */
     public String getLength() {
+
         return length;
     }
 
@@ -95,9 +130,19 @@ public class Song { //Klassi konstruktor
 
     /**
      *
+     * @return authors
+     */
+    public List<String> getAuthors() {
+        return authors;
+    }
+
+    /**
+     *
      * @param s bla bla
      */
     public void removeAuthor(String s) {
         authors.remove(s);
     }
+
+
 }

@@ -25,9 +25,9 @@ public class Band {
         song2.addAuthor("My friend");
 
         Song song3 = new Song();
-        song2.setTitle("Third song");
-        song2.setLength("9:18");
-        song2.addAuthor("Me");
+        song3.setTitle("Third song");
+        song3.setLength("9:18");
+        song3.addAuthor("Me");
 
         Song wrongSong = new Song();
         wrongSong.setTitle("Bom Diggity");
@@ -40,6 +40,15 @@ public class Band {
         album1.addSong(song1);
         album1.addSong(song2);
         album1.addSong(song3);
-        System.out.println(album1.release());
+
+        Song testSong = new Song();
+        testSong.setLength("999:0");
+//        System.out.println(album1.release());
+
+//        System.out.println(song1.getLength() + song1.getTitle() + song1.getAuthors());
+//        System.out.println(song2.getLength() + song2.getTitle() + song2.getAuthors());
+//        System.out.println(song3.getLength() + song3.getTitle() + song3.getAuthors());
+//        System.out.println(wrongSong.getLength() + wrongSong.getTitle() + wrongSong.getAuthors());
+//        System.out.println();
     }
 }
