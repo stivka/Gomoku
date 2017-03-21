@@ -1,5 +1,8 @@
 package ee.ttu.java.albumcreation;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -15,32 +18,48 @@ import static java.lang.Integer.valueOf;
 public class Song { //Klassi konstruktor
     /**
      *
-     * @param s length
-     * @return
      */
-    public Duration parse(String s) {
-        int colonIndex = s.indexOf(':');
-        String mm = s.substring(0, colonIndex);
-        String ss = s.substring(colonIndex + 1);
-        Duration duration = Duration.ofMinutes(valueOf(mm)).plusSeconds(valueOf(ss));
-        long seconds = duration.getSeconds();
-        System.out.println(String.format("%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, (seconds % 60)));
-        return duration;
-    }
-
-//    public static DateFormat sdf = new SimpleDateFormat("mm:ss");
+    public boolean readyBoolean = false;
     /**
      *
      */
-//    String bestFormat.format(DateTimeFormatter.ofPattern("mm:ss");
+    private List<Boolean> ready = new ArrayList<>();
+    /**
+     *
+     * @param s length
+     * @return
+     */
+    private Duration parse(String s) {
+        try {
+            int colonIndex = s.indexOf(':');
+            String mm = s.substring(0, colonIndex);
+            String ss = s.substring(colonIndex + 1);
+            duration = Duration.ofMinutes(valueOf(mm)).plusSeconds(valueOf(ss));
+            long seconds = duration.getSeconds();
+            System.out.println(String.format("%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, (seconds % 60)));
+            return duration;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     *
+     */
+    private Duration duration;
+    /**
+     *
+     */
+    private static DateFormat sdf = new SimpleDateFormat("mm:ss");
+    /**
+     *
+     */
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm:ss");
     /**
      *
      */
     private String title;
-    /**
-     *
-     */
-//    private Duration duration;
     /**
      *
      */
@@ -53,10 +72,31 @@ public class Song { //Klassi konstruktor
     private String length; // does it have to be set to null, for it to be null by default.
 
     /**
-     * Laulul peavad olema määratud pealkiri, vähemalt üks autor ning see peab olema aktsepteeritava pikkusega
+     * Laulul peavad olema määratud pealkiri, vähemalt üks autor ning see peab olema aktsepteeritava pikkusega.
+     *
+     * Kahtlustan, et seda testitakse ka eraldi. Et söödetakse sisse, Song objekt ning oodatakse sellele väljundit
+     * true või false.
+     * @param song asdfjkl
      */
-    public boolean isReady() {
-        return !(authors.size() <= 0 || title.length() <= 0); // is this correct. auto suggestion..
+    public boolean isReady(Song song) {
+        if (song.title != null) {
+            System.out.println("song title isn't null");
+        } else {
+            return false;
+        }
+        if (song.authors.size() > 0) {
+            System.out.println("song of has at least one author");
+        } else {
+            return false;
+        }
+        if (song.length != null) {
+            System.out.println("song has a length");
+        } else {
+            return false;
+        }
+        readyBoolean = true;
+        ready.add(true);
+        return true;
     }
 
     /**
@@ -64,7 +104,9 @@ public class Song { //Klassi konstruktor
      * @param s bla bla
      */
     public void setTitle(String s) {
-        this.title = s;
+        if (!s.equals(null) && !s.equals("")) {
+            this.title = s;
+        }
     }
 //    @Override
 //    public String toString() {
@@ -74,7 +116,7 @@ public class Song { //Klassi konstruktor
      *
      * @return title
      */
-    public String getTitle(){
+    private String getTitle(){
             return title;
     }
 
@@ -88,35 +130,41 @@ public class Song { //Klassi konstruktor
      * @param s sth like "02:43"
      */
     public void setLength(String s) {
-        this.length = String.valueOf(parse(s));
-
-//        DateFormat sdf = new SimpleDateFormat("mm:ss");
-//        sdf.setLenient(false); // this should make it so, that strings which don't fit the pattern, are rejected.
-//        Date timeFromDate = null;
 //        try {
-//            timeFromDate = sdf.parse(s);
-//            s = sdf.format(timeFromDate);
-////            System.out.println("Song length: " + s);
-//            this.length = s;
-//        } catch (ParseException e) {
-//            e.printStackTrace();
+//            Duration duration;
+//            Date timeFromDate;
+//            timeFromDate = formatter.parse(s);
+//            duration = formatter.parse(s);
+//            duration = sdf.parse(s);
 //        }
-//        Duration duration;
-//        String[] fields = s.split(":");
-//        System.out.println(Duration.parse(String.format("P%dM%sS", fields[0], fields[1])));
-//        System.out.println(duration);
-//        DateTimeFormatter bestFormatter = DateTimeFormatter.ofPattern("mm:ss");
-//        duration = bestFormatter.parse(s);
-//        System.out.println(duration);
-//        String.format(s, bestFormatter);
-//        System.out.println(s);
+        DateFormat sdf = new SimpleDateFormat("mm:ss");
+        sdf.setLenient(false); // this should make it so, that strings which don't fit the pattern, are rejected.
+        Date timeFromDate = null;
+        try {
+            timeFromDate = sdf.parse(s);
+            s = sdf.format(timeFromDate);
+//            System.out.println("Song length: " + s);
+            this.length = s;
+            parse(s); // runs class method parse
+            System.out.println(length);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Duration getDuration() {
+        return duration;
     }
     /**
      *
      * @return length
      */
     public String getLength() {
-
         return length;
     }
 

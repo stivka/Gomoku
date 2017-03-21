@@ -34,16 +34,24 @@ public class Band {
         wrongSong.setLength("3:2");
         wrongSong.addAuthor("Darkness");
 
+        Song fifthSong = new Song();
+        fifthSong.setTitle("Fifth Song");
+        fifthSong.setLength("33:00");
+        fifthSong.addAuthor("Von Mega");
+
         Album album1 = new Album();
         album1.setTitle("Album1");
         album1.setGenre("pop");
         album1.addSong(song1);
         album1.addSong(song2);
         album1.addSong(song3);
-
-        Song testSong = new Song();
-        testSong.setLength("999:0");
+        album1.addSong(wrongSong);
+        album1.addSong(fifthSong);
+        album1.release();
 //        System.out.println(album1.release());
+
+//        Song testSong = new Song();
+//        testSong.setLength("999:0");
 
 //        System.out.println(song1.getLength() + song1.getTitle() + song1.getAuthors());
 //        System.out.println(song2.getLength() + song2.getTitle() + song2.getAuthors());

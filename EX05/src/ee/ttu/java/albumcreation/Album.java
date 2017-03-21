@@ -3,10 +3,13 @@ package ee.ttu.java.albumcreation;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import static java.lang.Integer.valueOf;
 
 /**
  * Created by Stiv on 08/03/2017.
@@ -14,6 +17,10 @@ import java.util.List;
  * olema määratud ka nimi ja žanr. Kõik albumil olevad lood peavad olema valmis.
  */
 public class Album extends Song { //Klassi konstruktor
+    /**
+     *
+     */
+
     /**
      *
      */
@@ -32,7 +39,9 @@ public class Album extends Song { //Klassi konstruktor
      * @param song sth
      */
     public void addSong(Song song) {
-        trackListing.add(song);
+        if (isReady(song)) {
+            trackListing.add(song);
+        }
     }
     /**
      *
@@ -40,7 +49,6 @@ public class Album extends Song { //Klassi konstruktor
      */
     public void removeSong(Song song) {
         trackListing.remove(song);
-
     }
 
     /**
@@ -57,41 +65,44 @@ public class Album extends Song { //Klassi konstruktor
      * @return true or false
      */
     public boolean release() {
-        String s = "";
-        DateFormat sdf = new SimpleDateFormat("mm:ss");
-//        sdf.setLenient(false); // this should make it so, that strings which don't fit the pattern, are rejected.
-        Date timeFromDate;
-
-        long totalLength = 0;
-        for (int i = 0; i < trackListing.size(); i++) {
-            s = trackListing.get(i).getLength(); // get object, get its' length
-//            System.out.println(trackListing.get(i).getTitle());
-//            System.out.println(trackListing.get(i));
-//            System.out.println(s);
-            try {
-                timeFromDate = sdf.parse(s);
-                System.out.println(timeFromDate);
-                System.out.println("Total length: " + timeFromDate);
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
+        Duration totalLength = Duration.ofMinutes(valueOf(0)).plusSeconds(valueOf(0));
+        long seconds = 0;
+        for (Song song: trackListing) {
+            seconds += song.getDuration().getSeconds();
+//            totalLength.plus(song.getDuration());
+            System.out.println(seconds);
+            System.out.println(String.format("%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, (seconds % 60)));
         }
-
-//        if (trackListing.size() > 4 && )
+        if (seconds / 60 >= 25) {
+            System.out.println("over 25 mins");
+        } else { return false;}
+        if (trackListing.size() > 4) {
+            System.out.println("over 4 songs");
+        } else { return false;}
+        if (title != null) {
+            System.out.println("title isn't null");
+        } else { return false;}
+        if (genre != null) {
+            System.out.println("genre isn't null");
+        }  else { return false;}
+        System.out.println("Album is released!");
         return true;
     }
 
     /**
      *
-     * @param album1 lalalaa
+     * @param album lalalaa
      */
-    public void setTitle(String album1) {
-        this.title = album1;
+    public void setTitle(String album) {
+        if (!album.equals(null) && !album.equals(""))
+        this.title = album;
+        System.out.println(title);
     }
 
-    @Override
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
@@ -101,9 +112,11 @@ public class Album extends Song { //Klassi konstruktor
      * @param genre sth
      */
     public void setGenre(String genre) {
-        this.genre = genre;
+        if (!genre.equals(null) && !genre.equals("")) {
+            this.genre = genre;
+            System.out.println(genre);
+        }
     }
-
     /**
      *
      * @return genre
