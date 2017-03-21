@@ -78,18 +78,18 @@ public class Song { //Klassi konstruktor
      * true või false.
      * @param song asdfjkl
      */
-    public boolean isReady(Song song) {
-        if (song.title != null) {
+    public boolean isReady() {
+        if (title != null) {
             System.out.println("song title isn't null");
         } else {
             return false;
         }
-        if (song.authors.size() > 0) {
+        if (authors.size() > 0) {
             System.out.println("song of has at least one author");
         } else {
             return false;
         }
-        if (song.length != null) {
+        if (length != null) {
             System.out.println("song has a length");
         } else {
             return false;

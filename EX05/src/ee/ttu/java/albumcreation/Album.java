@@ -39,7 +39,7 @@ public class Album extends Song { //Klassi konstruktor
      * @param song sth
      */
     public void addSong(Song song) {
-        if (isReady(song)) {
+        if (song.isReady()) {
             trackListing.add(song);
         }
     }
