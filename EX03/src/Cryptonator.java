@@ -29,74 +29,70 @@ public class Cryptonator {
                 decrypt = true;
             }
         }
-        for (StackTraceElement elements:stackTraceElements) {
+        for (StackTraceElement elements : stackTraceElements) {
             System.out.println(elements);
             if (elements.getMethodName() == "decrypt") {
                 decrypt = true;
-        }
-        
-        
-        
-        
-        String[] stringlist = {"smeggens", "jebbedu", "ubens"};
-        for (int i = 0; i < stringlist.length; i++){
-            System.out.println(stringlist[i]);
-        }
-
-        for (String string:stringlist) {
-            System.out.println(string);
-        }
-        
-        
-        
-        
-        
-        for (StackTraceElement element:stackTraceElements) {
-            if (element.getMethodName() == "decrypt") {
-                decrypt = true;
             }
         }
-        System.out.println(stackTraceElements);
-        String encryption = "";
+
+            String[] stringlist = {"smeggens", "jebbedu", "ubens"};
+            for (int i = 0; i < stringlist.length; i++) {
+                System.out.println(stringlist[i]);
+            }
+
+            for (String string : stringlist) {
+                System.out.println(string);
+            }
+
+
+            for (StackTraceElement element : stackTraceElements) {
+                if (element.getMethodName() == "decrypt") {
+                    decrypt = true;
+                }
+            }
+            System.out.println(stackTraceElements);
+            String encryption = "";
 //        char mostInfrequentChar = 'a';
-        int newIndexInAlphabet = 0;
-        if (plainText == null) {
-            return null;
-        }
-        if (plainText.equals("")) {
-            return "";
-        }
-        plainText.toLowerCase();
-        System.out.println((plainText.toLowerCase() + " (.. in lowercase)"));
-        System.out.println("Down below is the text re-written in indexes, and omitting anything but letters.");
-        for (int c = 0; c < plainText.length(); c++) {
-            if (Character.isLetter(plainText.charAt(c))) {
+            int newIndexInAlphabet = 0;
+            if (plainText == null) {
+                return null;
+            }
+            if (plainText.equals("")) {
+                return "";
+            }
+            plainText.toLowerCase();
+            System.out.println((plainText.toLowerCase() + " (.. in lowercase)"));
+            System.out.println("Down below is the text re-written in indexes, and omitting anything but letters.");
+            for (int c = 0; c < plainText.length(); c++) {
+                if (Character.isLetter(plainText.charAt(c))) {
                 /* perfect! newIndexInAlphabet equals to the lowercase character newIndexInAlphabet number in
                 accordance to the alphabet string. the rotation is also applied, which is divided by modulus to
                 eliminate whole cycles - from a (newIndexInAlphabet  0) - 27 should do one cycle and - 1, landing
                 on z. Which divided with modulus would give (27 % 26 = 1) a plain 1, implying that the operation
                 merely be - 1.
                 */
-                System.out.print(STRING_ALPHABET.indexOf((plainText.toLowerCase()).charAt(c)) + " ");
-                newIndexInAlphabet = ((STRING_ALPHABET.indexOf((plainText.toLowerCase()).charAt(c))
-                        + (rotation % NUM_LETTERS_ALPHABET)) % NUM_LETTERS_ALPHABET);
-                if (newIndexInAlphabet < 0) { // for decryption, when rotation goes negative.
-                    encryption += STRING_ALPHABET.charAt(NUM_LETTERS_ALPHABET + newIndexInAlphabet);
+                    System.out.print(STRING_ALPHABET.indexOf((plainText.toLowerCase()).charAt(c)) + " ");
+                    newIndexInAlphabet = ((STRING_ALPHABET.indexOf((plainText.toLowerCase()).charAt(c))
+                            + (rotation % NUM_LETTERS_ALPHABET)) % NUM_LETTERS_ALPHABET);
+                    if (newIndexInAlphabet < 0) { // for decryption, when rotation goes negative.
+                        encryption += STRING_ALPHABET.charAt(NUM_LETTERS_ALPHABET + newIndexInAlphabet);
+                    } else {
+                        encryption += STRING_ALPHABET.charAt(newIndexInAlphabet);
+                    }
                 } else {
-                    encryption += STRING_ALPHABET.charAt(newIndexInAlphabet);
+                    encryption += plainText.charAt(c);
                 }
-            } else {
-                encryption += plainText.charAt(c);
             }
-        }
-        System.out.println("\n" + encryption + " (is the text encrypted with rotation " + rotation + " applied, "
-                + "without any minimization)");
-        // which can be the encrypted message or the decrypted message.
-        if (decrypt) {
-            return encryption;
-        }
+            System.out.println("\n" + encryption + " (is the text encrypted with rotation " + rotation + " applied, "
+                    + "without any minimization)");
+            // which can be the encrypted message or the decrypted message.
+            if (decrypt) {
+                return encryption;
+            }
         return minimizeText(encryption);
     }
+
 
     /**
      * Finds the most infrequently occurring letter in text.
