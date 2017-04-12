@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ee.ttu.java.cookie.CookieGame">
+   <children>
+      <SplitPane dividerPositions="0.4983277591973244" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #db2b2b;">
+               <children>
+                  <Label fx:id="cookieCounter" alignment="CENTER" contentDisplay="CENTER" ellipsisString="#38d035" graphicTextGap="0.0" layoutX="94.0" layoutY="71.0" text="Cookies:" textAlignment="CENTER" textFill="#38d035">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+          <AnchorPane style="-fx-background-color: #dfba26;" />
+        </items>
+      </SplitPane>
+      <Button layoutX="94.0" layoutY="121.0" mnemonicParsing="false" onAction="#click">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cookie.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="cursorCounter" layoutX="350.0" layoutY="147.0" text="Cursors:" textFill="#38d035">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label layoutX="350.0" layoutY="183.0" text="Clickers:" textFill="#38d035">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label layoutX="483.0" layoutY="113.0" text="Price:" textFill="#38d035">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Button layoutX="346.0" layoutY="225.0" mnemonicParsing="false" onAction="#buyCursor" text="Buy Cursor" textFill="#38d035" />
+      <Button layoutX="346.0" layoutY="267.0" mnemonicParsing="false" text="Buy Clicker" textFill="#38d035" />
+      <Label fx:id="cursorPriceLabel" layoutX="498.0" layoutY="147.0" textFill="#38d035" />
+   </children>
+</AnchorPane>
