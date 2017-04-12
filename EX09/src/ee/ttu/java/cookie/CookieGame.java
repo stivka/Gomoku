@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
  * Created by Stiv on 10/04/2017.
  */
 
+// controller classi kirjutada cooki
+
 public class CookieGame {
     /**
      * Field int for the price of the next cursor.
@@ -66,7 +68,7 @@ public class CookieGame {
 
 
     /**
-     * Constructor
+     * Constructor.
      */
     public CookieGame() {
 
@@ -86,7 +88,7 @@ public class CookieGame {
 
     /**
      *
-     * @return true if player has enough cookies to buy another cursor
+     * @return true if player has enough cookies to buy another cursor.
      */
     boolean canBuyCursor() {
 
@@ -94,8 +96,8 @@ public class CookieGame {
     }
 
     /**
-     * buys new cursor
-     * @param buyCursor 
+     * buys new cursor.
+     * @param buyCursor
      */
     public void buyCursor(ActionEvent buyCursor) {
         if (cookieAmount - (cursorCount * cursorPriceIncrease) >= 0) {
@@ -120,7 +122,7 @@ public class CookieGame {
 
     /**
      *
-     * @return amount of cursors
+     * @return amount of cursors.
      */
     int getCursorCount() {
 
@@ -129,7 +131,7 @@ public class CookieGame {
 
     /**
      *
-     * @return the next cursor's price
+     * @return the next cursor's price.
      */
     int getCursorPrice() {
 
@@ -138,7 +140,7 @@ public class CookieGame {
 
     /**
      *
-     * @return number of cookies
+     * @return number of cookies.
      */
     int getCookies() {
 
@@ -146,8 +148,8 @@ public class CookieGame {
     }
 
     /**
-     * executes the action that succeeds clicking on the cookie
-     * @param clickOnCookie what will it do
+     * executes the action that succeeds clicking on the cookie.
+     * @param clickOnCookie what will it do.
      */
     public void click(ActionEvent clickOnCookie) {
         cookieAmount += clickValue;

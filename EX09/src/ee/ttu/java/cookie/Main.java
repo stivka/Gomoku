@@ -4,36 +4,38 @@
 
 package ee.ttu.java.cookie;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
- *  Main class
+ *  Main class.
  */
+
+// uus objekt luua controlleris.
+    // @FXML public void initialize.
+
 public class Main extends Application {
-    /**
-     * Sets the stage.
+      /**
+     * Laius on 600.
      */
-    public static Stage primaryStage;
+    private static final int WIDTH = 600;
+    /**
+     * Heigth of the window is 400.
+     */
+    private static final int HEIGHT = 400;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));
         primaryStage.setTitle("Cookie Clicker");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
         primaryStage.show();
         primaryStage.setResizable(false);
         getParameters();
-
     }
-
     /**
      *
      * @param args dunno
