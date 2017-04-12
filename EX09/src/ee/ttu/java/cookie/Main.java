@@ -14,10 +14,12 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
- *
+ *  Main class
  */
 public class Main extends Application {
-
+    /**
+     * Sets the stage.
+     */
     public static Stage primaryStage;
 
     @Override

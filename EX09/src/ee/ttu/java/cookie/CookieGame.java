@@ -10,26 +10,57 @@ import javafx.scene.control.Label;
  */
 
 public class CookieGame {
-    private int cursorPrice = CURSOR_STARTIN_PRICE;
-    private static final int CURSOR_STARTIN_PRICE = 20;
-    private int cursorPriceIncrease = 20;
+    /**
+     * Field int for the price of the next cursor.
+     */
+    private int cursorPrice = CURSOR_PRICE_MODULE;
+    /**
+     *  Final int for the the sum, the price will increase by successively.
+     */
+    private static final int CURSOR_PRICE_MODULE = 20;
+    /**
+     * NOT a final int, for use within a constructor, to set the increasing price for buying a cursor.
+     */
+    private int cursorPriceIncrease = CURSOR_PRICE_MODULE;
+    /**
+     *  Field int for counting how many cookies you have.
+     */
     private int cookieAmount = 0; // default value 0
+    /**
+     *  Field int for determining the value that one cookie click has.
+     */
     private int clickValue = 1; // default value 1
+    /**
+     *  Field int for determining how many cursors you have.
+     */
     private int cursorCount = 1;
 
+    /**
+     *
+     * @param cursorPrice the price for buying another cursor
+     */
     public void setCursorPrice(int cursorPrice) {
-        cursorPriceLabel.setText(String.valueOf(cursorCount * CURSOR_STARTIN_PRICE));
+        cursorPriceLabel.setText(String.valueOf(cursorCount * CURSOR_PRICE_MODULE));
     }
 
+    /**
+     * Label which shows how many cookies you have.
+     */
     @FXML
     private Label cookieCounter;
-
+    /**
+     * Label which shows how many cursors you have.
+     */
     @FXML
     private Label cursorCounter;
-
+    /**
+     * Label which shows you how much the next cursor will cost.
+     */
     @FXML
     private Label cursorPriceLabel;
-
+    /**
+     * Possible button control for setting visibility.
+     */
     @FXML
     private Button buyCursor;
 
@@ -69,8 +100,6 @@ public class CookieGame {
     public void buyCursor(ActionEvent buyCursor) {
         if (cookieAmount - (cursorCount * cursorPriceIncrease) >= 0) {
 
-//            buyCursor.
-
             cookieAmount -= (cursorCount * cursorPriceIncrease);
             cursorCount += 1;
             cursorPrice += cursorPriceIncrease;
@@ -78,9 +107,14 @@ public class CookieGame {
 
             cursorPriceLabel.setText(String.valueOf(cursorPrice));
             cookieCounter.setText("Cookies: " + String.valueOf(cookieAmount));
+            cursorCounter.setText("Cursors: " + String.valueOf(cursorCount));
         }
 
     }
+
+//    public void setBuyCursor(ActionEvent buyCursor) {
+//        buyCursor
+//    }
 
     /**
      *
