@@ -28,7 +28,7 @@ public class Main extends Application {
     private static final int HEIGHT = 400;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));
         primaryStage.setTitle("Cookie Clicker");
         primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));

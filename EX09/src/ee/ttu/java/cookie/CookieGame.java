@@ -97,7 +97,7 @@ public class CookieGame {
 
     /**
      * buys new cursor.
-     * @param buyCursor
+     * @param buyCursor buys a cursor
      */
     public void buyCursor(ActionEvent buyCursor) {
         if (cookieAmount - (cursorCount * cursorPriceIncrease) >= 0) {
