@@ -25,7 +25,7 @@ public class Heatmapper {
     /**
      * @param url the url of the site, from where the text is grabbed.
      */
-    Heatmapper(String url) {
+    public Heatmapper(String url) {
         stringFromUrl(url);
         hashMap = new HashMap<>();
 
