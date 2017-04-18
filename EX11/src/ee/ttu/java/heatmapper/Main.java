@@ -1,8 +1,4 @@
-/**
- * Created by Stiv on 10/04/2017.
- */
-
-package ee.ttu.java.cookie;
+package ee.ttu.java.heatmapper;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *  Main class.
+ * Created by Stiv on 17/04/2017.
  */
-
-// uus objekt luua controlleris.
-    // @FXML public void initialize.
-
 public class Main extends Application {
     /**
      * Laius on 600.
@@ -29,8 +21,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));
-        primaryStage.setTitle("Cookie Clicker");
+        Parent root = FXMLLoader.load(getClass().getResource("fxml.fxml"));
+        primaryStage.setTitle("Heatmapper");
         primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
         primaryStage.show();
         primaryStage.setResizable(false);
@@ -44,3 +36,4 @@ public class Main extends Application {
         launch(args);
     }
 }
+
