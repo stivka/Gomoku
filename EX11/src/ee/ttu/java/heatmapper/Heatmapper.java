@@ -1,7 +1,6 @@
 package ee.ttu.java.heatmapper;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
