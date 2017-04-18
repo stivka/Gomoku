@@ -3,6 +3,9 @@ package ee.ttu.java.heatmapper;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 import static javafx.application.Application.launch;
@@ -54,22 +57,29 @@ public class Heatmapper {
      * @return
      */
     public String stringFromUrl(String url) {
-        try (BufferedReader br = new BufferedReader(new FileReader(url))) {
+        try {
 
-//            String wholeString = "";
-            String line;
-            while ((line = br.readLine()) != null) {
-                wholeString += line;
-                System.out.println(line);
-            }
+            URL url1 = new URL(url);
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url1.openStream()));
+
+            wholeString = ""; // clears the string.
+            String inputLine;
+
+            while ((inputLine = in.readLine()) != null)
+                wholeString += inputLine;
+            System.out.println(wholeString);
+            in.close();
+
+        } catch (MalformedURLException e) {
+            System.out.println("Malformed URL: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("I/O Error: " + e.getMessage());
         }
-        return wholeString; /*Should give the field wholeString the String value
-         equal to the text read from the URL site. Is the keyword 'this' necessary
-         here? */
-    }
 
+        return wholeString;
+    }
     /**
      * This method I understand will be only used for printing the
      * values from the HashMap. The 'get' function by key, will be
@@ -92,19 +102,19 @@ public class Heatmapper {
      *
      * @return maximum letter pair from string.
      */
-//    public int getMaxCount() {
-////        Heatmapper maxCount = new Heatmapper(s);
-//        int maxCount = 0;
-//
-//        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
-//            if (entry.getValue() > maxCount) {
-//                maxCount = Integer.valueOf(entry.getValue());
-//                //maybe the value of here is unnecessary
-//            }
-//        }
-//        System.out.println("Maximum occurring amount of a pair is: " + maxCount);
-//        return maxCount;
-//    }
+    public int getMaxCount() {
+//        Heatmapper maxCount = new Heatmapper(s);
+        int maxCount = 0;
+
+        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = Integer.valueOf(entry.getValue());
+                //maybe the value of here is unnecessary
+            }
+        }
+        System.out.println("Maximum occurring amount of a pair is: " + maxCount);
+        return maxCount;
+    }
 
 
     /**
@@ -112,20 +122,20 @@ public class Heatmapper {
      * @param bigram what it means??.
      * @return returns (hopefully*) the integer amount for given letter pair.
      */
-//        public int getCountForBigram (String bigram){
-////        Heatmapper getCount = new Heatmapper(bigram);
-//            int count = 0;
-//
-//            Set set = hashMap.entrySet();
-//            Iterator iterator = set.iterator();
-//            while (iterator.hasNext()) {
-//                Map.Entry mentry = (Map.Entry) iterator.next();
-//                System.out.println("Value is: " + mentry.getValue());
-//                System.out.println(mentry.getValue());
-//                System.out.println(bigram + " occurs " + getBigrams().get(bigram) + " times.");
-//            }
-//            return count;
-//        }
+        public int getCountForBigram(String bigram){
+//        Heatmapper getCount = new Heatmapper(bigram);
+            int count = 0;
+
+            Set set = hashMap.entrySet();
+            Iterator iterator = set.iterator();
+            while (iterator.hasNext()) {
+                Map.Entry mentry = (Map.Entry) iterator.next();
+                System.out.println("Value is: " + mentry.getValue());
+                System.out.println(mentry.getValue());
+                System.out.println(bigram + " occurs " + getBigrams().get(bigram) + " times.");
+            }
+            return count;
+        }
 
     /**
      * @return

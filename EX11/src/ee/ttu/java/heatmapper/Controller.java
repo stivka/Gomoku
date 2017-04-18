@@ -2,6 +2,7 @@ package ee.ttu.java.heatmapper;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 /**
@@ -14,6 +15,11 @@ public class Controller {
     @FXML
     private TextField urlBox;
     /**
+     * On the push of the button, the URL is processed.
+     */
+    @FXML
+    private Button submitUrl;
+    /**
      * Sets the texfield input as String url.
      */
     private String url;
@@ -22,9 +28,14 @@ public class Controller {
      *
      * @param setUrlBox URL address.
      */
-    public void run(ActionEvent setUrlBox) {
+    public void pushButton(ActionEvent setUrlBox) {
             url = urlBox.getText();
             Heatmapper nextInstance = new Heatmapper(url);
+
+            nextInstance.getBigrams();
+            nextInstance.getMaxCount();
+            nextInstance.getCountForBigram("ip");
+            nextInstance.getTotalCount();
 
 //            nextInstance.getMaxCount and so forth..
 
