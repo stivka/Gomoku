@@ -1,10 +1,5 @@
 package ee.ttu.java.heatmapper;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 import static javafx.application.Application.launch;
@@ -20,27 +15,28 @@ public class Heatmapper {
     /**
      * The String created from text on the URL site.
      */
-    private String wholeString;
+    public String s;
 
     /**
-     * @param url the url of the site, from where the text is grabbed.
+     * @param s used to be "url" the url of the site, from where the text is grabbed.
      */
-    public Heatmapper(String url) {
-        stringFromUrl(url);
+    public Heatmapper(String s) {
+//        stringFromUrl(url);
+        System.out.println(s);
         hashMap = new HashMap<>();
 
-        wholeString = wholeString.toLowerCase();
+        this.s = s.toLowerCase();
 
         String pair = "";
         int value = 0;
 
-        for (int i = 0; i < wholeString.length() - 1; i++) {
-            if ((wholeString.charAt(i) >= 'a' && wholeString.charAt(i) <= 'z')
-                    && (wholeString.charAt(i + 1) >= 'a'
-                    && wholeString.charAt(i + 1) <= 'z')) {
+        for (int i = 0; i < this.s.length() - 1; i++) {
+            if ((this.s.charAt(i) >= 'a' && this.s.charAt(i) <= 'z')
+                    && (this.s.charAt(i + 1) >= 'a'
+                    && this.s.charAt(i + 1) <= 'z')) {
 // if (Character.isLetter(s.charAt(i)) && Character.isLetter(s.charAt(i + 1))) {
 //                pair = String.valueOf(whole.charAt(i)) + String.valueOf(whole.charAt(i + 1));
-                pair = new StringBuilder().append(wholeString.charAt(i)).append(wholeString.charAt(i + 1)).toString();
+                pair = new StringBuilder().append(this.s.charAt(i)).append(this.s.charAt(i + 1)).toString();
 
                 if (!hashMap.containsKey(pair)) {
                     hashMap.put(pair, 1);
@@ -55,30 +51,30 @@ public class Heatmapper {
      * @param url the URL address.
      * @return
      */
-    public String stringFromUrl(String url) {
-        try {
-
-            URL url1 = new URL(url);
-
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(url1.openStream()));
-
-            wholeString = ""; // clears the string.
-            String inputLine;
-
-            while ((inputLine = in.readLine()) != null)
-                wholeString += inputLine;
-            System.out.println(wholeString);
-            in.close();
-
-        } catch (MalformedURLException e) {
-            System.out.println("Malformed URL: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("I/O Error: " + e.getMessage());
-        }
-
-        return wholeString;
-    }
+//    public String stringFromUrl(String url) {
+//        try {
+//
+//            URL url1 = new URL(url);
+//
+//            BufferedReader in = new BufferedReader(
+//                    new InputStreamReader(url1.openStream()));
+//
+//            s = ""; // clears the string.
+//            String inputLine;
+//
+//            while ((inputLine = in.readLine()) != null)
+//                s += inputLine;
+//            System.out.println(s);
+//            in.close();
+//
+//        } catch (MalformedURLException e) {
+//            System.out.println("Malformed URL: " + e.getMessage());
+//        } catch (IOException e) {
+//            System.out.println("I/O Error: " + e.getMessage());
+//        }
+//
+//        return s;
+//    }
     /**
      * This method I understand will be only used for printing the
      * values from the HashMap. The 'get' function by key, will be
@@ -153,21 +149,6 @@ public class Heatmapper {
      */
     public static void main(String[] args) {
         launch(args);
-//            Heatmapper instance = new Heatmapper("C:\\Users\\Stiv\\ITI0011\\stkapt\\EX11\\src\\text");
-
-
-//            Heatmapper thisObj = new Heatmapper(whole);
-//            thisObj.getBigrams(whole);
-//            Heatmapper ipsum = new Heatmapper(whole);
-//            ipsum.getBigrams();
-//            ipsum.getMaxCount();
-//            ipsum.getCountForBigram("ha");
-//
-//            ipsum.getCountForBigram("aaa aab");
-//            ipsum.getTotalCount();
-//
-//            Heatmapper countForPair = new Heatmapper(whole);
-//            countForPair.getCountForBigram("pi");
-//        }
+//        Heatmapper ipsum = new Heatmapper()
     }
 }
