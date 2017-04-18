@@ -63,7 +63,10 @@ public class Controller {
             nextInstance.getCountForBigram("ip");
             nextInstance.getTotalCount();
 
-            setGridPane();
+            Heatmapper getCount = new Heatmapper("aabc abcd aaab ab");
+            getCount.getCountForBigram("AB");
+
+//            setGridPane();
 
 //            nextInstance.getMaxCount and so forth..
 

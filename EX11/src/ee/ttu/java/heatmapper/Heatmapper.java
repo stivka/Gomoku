@@ -48,34 +48,6 @@ public class Heatmapper {
     }
 
     /**
-     * @param url the URL address.
-     * @return
-     */
-//    public String stringFromUrl(String url) {
-//        try {
-//
-//            URL url1 = new URL(url);
-//
-//            BufferedReader in = new BufferedReader(
-//                    new InputStreamReader(url1.openStream()));
-//
-//            s = ""; // clears the string.
-//            String inputLine;
-//
-//            while ((inputLine = in.readLine()) != null)
-//                s += inputLine;
-//            System.out.println(s);
-//            in.close();
-//
-//        } catch (MalformedURLException e) {
-//            System.out.println("Malformed URL: " + e.getMessage());
-//        } catch (IOException e) {
-//            System.out.println("I/O Error: " + e.getMessage());
-//        }
-//
-//        return s;
-//    }
-    /**
      * This method I understand will be only used for printing the
      * values from the HashMap. The 'get' function by key, will be
      * the function getCountForBigram(String Bigram), which will take
@@ -117,9 +89,12 @@ public class Heatmapper {
      * @param bigram what it means??.
      * @return returns (hopefully*) the integer amount for given letter pair.
      */
-        public int getCountForBigram(String bigram){
-//        Heatmapper getCount = new Heatmapper(bigram);
+        public int getCountForBigram(String bigram) {
+
             int count = 0;
+            bigram = bigram.toLowerCase();
+
+            Heatmapper getCount = new Heatmapper(bigram);
 
             Set set = hashMap.entrySet();
             Iterator iterator = set.iterator();
@@ -128,6 +103,7 @@ public class Heatmapper {
                 System.out.println("Value is: " + mentry.getValue());
                 System.out.println(mentry.getValue());
                 System.out.println(bigram + " occurs " + getBigrams().get(bigram) + " times.");
+                count = getBigrams().get(bigram);
             }
             return count;
         }
