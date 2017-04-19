@@ -125,7 +125,7 @@ public class Heatmapper {
     }
 
     /**
-     * @param args never i know what it means.
+     * @param args never i know what it means..
      */
     public static void main(String[] args) {
         launch(args);
