@@ -10,6 +10,7 @@ import javafx.stage.Stage;
  * Created by Stiv on 17/04/2017.
  */
 public class Main extends Application {
+    public static Stage heatmapStage;
     /**
      * Laius on 600.
      */
@@ -21,6 +22,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        heatmapStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("fxml.fxml"));
         primaryStage.setTitle("Heatmapper");
         primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
