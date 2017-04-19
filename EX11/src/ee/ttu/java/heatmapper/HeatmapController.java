@@ -11,7 +11,9 @@ import java.util.ResourceBundle;
  * Created by Stiv on 19/04/2017.
  */
 public class HeatmapController implements Initializable {
-
+    /**
+     * Anchorpane for heatStage.
+     */
     @FXML
     AnchorPane heatPane;
     /**
