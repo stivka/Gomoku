@@ -1,6 +1,10 @@
 package ee.ttu.java.heatmapper;
 
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import static javafx.application.Application.launch;
 
@@ -109,7 +113,7 @@ public class Heatmapper {
         }
 
     /**
-     * @return
+     * @return The sum of all existing pairs in hashMap.
      */
     public int getTotalCount() {
         int totalCount = 0;

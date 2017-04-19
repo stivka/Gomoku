@@ -10,6 +10,9 @@ import javafx.stage.Stage;
  * Created by Stiv on 17/04/2017.
  */
 public class Main extends Application {
+    /**
+     * The stage for the graphical representation.
+     */
     public static Stage heatmapStage;
     /**
      * Laius on 600.
@@ -38,4 +41,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-
