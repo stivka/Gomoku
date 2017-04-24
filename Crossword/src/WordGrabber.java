@@ -2,9 +2,11 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,13 +16,15 @@ import java.util.List;
  * Created by Stiv on 19/04/2017.
  */
 public class WordGrabber {
-    private List<String> wordList = new ArrayList<>();
+    private List<String> wordsList = new ArrayList<>();
     private String wholeString;
     private String word;
     private char[][] grid;
     private static final int MAX_WORD_LENGTH = 30;
     private String alphabet = "abcdefghijklmnopqrstuvwyz";
     private int[] wordArray;
+    private List<int[]> wordsArray = new ArrayList<>();
+//    private int[] wordArray = new int[];
 
     /**
      *
@@ -75,7 +79,7 @@ public class WordGrabber {
             if (Character.isLetter(wholeString.charAt(i))) {
                 word += wholeString.charAt(i);
             } else if (Character.isWhitespace(wholeString.charAt(i)) && word.length() > 0) {
-//                wordList.add(word);
+//                wordsList.add(word);
                 addWord(word);
                 word = ""; // clears String
                         /*
@@ -84,7 +88,7 @@ public class WordGrabber {
                 symbol. None a symbol which forms a word.
                  */
             } else if (word.length() > 0) {
-//                wordList.add(word);
+//                wordsList.add(word);
                 addWord(word);
                 word = "";
             }
@@ -98,15 +102,15 @@ public class WordGrabber {
      * @param word The String word extracted from the wholeString.
      */
     public void addWord(String word){
-        if (!wordList.contains(word)) {
-            wordList.add(word);
+        if (!wordsList.contains(word)) {
+            wordsList.add(word);
         }
     }
 
     public void getWords() {
-        java.util.Collections.sort(wordList);
-        wordList.forEach(System.out::println);
-        System.out.println("Currently there are " + wordList.size()
+        java.util.Collections.sort(wordsList);
+        wordsList.forEach(System.out::println);
+        System.out.println("Currently there are " + wordsList.size()
         + " words in the list.");
     }
 
@@ -131,25 +135,46 @@ public class WordGrabber {
     public void wordToArray(String word) {
         int[] wordArray = new int[word.length()];
         for (int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
+            char wordChar = word.charAt(i);
             for (int j = 0; j < alphabet.length(); j++) {
+                char alphaChar = alphabet.charAt(j);
                 /*
                 Places the corresponding letter index from the alphabet
                 to the same letter position in the wordArray.
                  */
-                if (c == alphabet.charAt(j)) {
-                    this.wordArray[i] = alphabet.indexOf(word.charAt(i));
+                if (wordChar == alphaChar) {
+                    wordArray[i] = alphabet.indexOf(alphaChar);
+                    break;
                 }
             }
         }
-//        System.out.println(wordArray);
+        this.wordArray = wordArray;
+        //        System.out.println(wordArray);
     }
 
     public void getWordArray() {
         for (int i = 0; i < wordArray.length; i++) {
-            System.out.println(wordArray[i]);
+            System.out.print(wordArray[i] + " ");
         }
     }
+
+    public void convertWordsToArrays() {
+        for (int i = 0; i < wordsList.size(); i++) {
+            wordToArray(wordsList.get(i));
+
+            wordsArray.add(wordArray);
+        }
+    }
+
+    public void getWordsArray() {
+//        Arrays.toString(wordsArray);
+        for (int i = 0; i < wordsArray.size(); i++) {
+            System.out.println(Arrays.toString(wordsArray.get(i)));
+        }
+//        System.out.println(Arrays.deepToString(wordsArray));
+    }
+
+
 
     /**
      *
@@ -157,13 +182,13 @@ public class WordGrabber {
      */
     public static void main(String[] args) {
         WordGrabber wordGrab = new WordGrabber();
-//        wordGrab.start();
+        wordGrab.start();
 
 //        String s = "and";
 //        System.out.println(s.toCharArray());
 
-        wordGrab.wordToArray("and");
-        wordGrab.getWordArray();
+//        wordGrab.wordToArray("and");
+//        wordGrab.getWordArray();
     }
 
     /**
@@ -173,9 +198,11 @@ public class WordGrabber {
     public void start() {
         stringFromUrl("http://norvig.com/big.txt", 1000);
         wordFromString(wholeString);
-        getWords();
+//        getWords();
         createGrid(10, 10);
-        getGrid();
+//        getGrid();
+        convertWordsToArrays();
+        getWordsArray();
 
     }
 }
