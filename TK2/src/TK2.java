@@ -17,6 +17,7 @@ public class TK2 {
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != 0) {
                 sortedNums[zeroCount] = nums[i];
+                zeroCount++;
             }
         }
 
