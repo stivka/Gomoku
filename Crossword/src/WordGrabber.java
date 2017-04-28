@@ -171,6 +171,12 @@ public class WordGrabber {
         }
     }
 
+    public void getArraysList() {
+        for (int i = 0; i < arraysList.size(); i++) {
+            System.out.println(arraysList.get(i));
+        }
+    }
+
     public void convertWordsToArrays() {
         /* Adds 3 words to begin with to the arraysList, so comparing can be done from here forward.*/
         wordToArray(wordsList.get(0));
@@ -187,13 +193,15 @@ public class WordGrabber {
         arraysList list. Converts the word into an int[], and stores it in the wordArray global variable.*/
         while (wordsList.size() > 0) {
 
-            int wli = 0; // word list index.
-            int wli = 0;
+            int wordsListIndex = 0; // word list index.
 
             int minDifference = 26; // impossibly big difference. static final int impossible difference.
 
-            int lwl; // list word letter.
-            int pwl; // placeable word letter
+            int arraysListWordLetter; // list word letter.
+            int placeableWordLetter; // placeable word letter
+            int arraysListNextWordLetter;
+            int arraysListNextWordIndex;
+
 
             int[] closestMatch1Array;
             int closestMatch1ArrayIndex;
@@ -201,23 +209,28 @@ public class WordGrabber {
             int closestMatch1SameLetters = 0; // same letters - exactly same letters in order
 
             int shorterWordLength = 1;
+            int[] placeableWord;
 
             /* Size -2 since it takes the value of l AND l + 2. Also there are two arrays in the list to start with
             so that there wouldn't be a conflict.*/
-            for (int ali = 0; ali < arraysList.size() - 2; ali++) {
+            for (int arraysListIndex = 0; arraysListIndex < arraysList.size() - 2; arraysListIndex++) {
                 /* Also if placeable word array length is larger than the list word length. E.g. Antler vs. Ant - so as
                 to avoid conflicts, we must write a try catch or sth. similar.. Also there CAN'T be identical words in
                 the wordList, so no conflicts on that part. */
-                for (wli = 0; wli < shorterWordLength; wli++) {
+                for (wordsListIndex = 0; wordsListIndex < shorterWordLength; wordsListIndex++) {
 
-                    shorterWordLength = Math.min(arraysList.get(ali).length, wordToArray(wordsList.get(wli)).length);
+                    shorterWordLength = Math.min(arraysList.get(arraysListIndex).length, wordToArray(wordsList.get(wordsListIndex)).length);
                     /* Assigns the first arrayList item, as the closest match (SO FAR). */
-                    closestMatch1Array = arraysList.get(ali);
-                    closestMatch1ArrayIndex = ali;
 
-                    lwl = arraysList.get(ali)[wli];
-                    lnwl = arraysList.get(ali + 1)[wli];
-                    pwl = wordArray[wli];
+                    placeableWord = wordToArray(wordsList.get(wordsListIndex));
+
+                    closestMatch1Array = arraysList.get(arraysListIndex);
+                    closestMatch1ArrayIndex = arraysListIndex;
+
+                    arraysListWordLetter = arraysList.get(arraysListIndex)[wordsListIndex];
+                    arraysListNextWordLetter = arraysList.get(arraysListIndex + 1)[wordsListIndex];
+                    arraysListNextWordIndex = arraysListIndex + 1;
+                    placeableWordLetter = wordArray[wordsListIndex];
 
 
 
@@ -225,18 +238,21 @@ public class WordGrabber {
                     still whether it is before or after this word by comparing the next letters of each word. The break
                      keyword just makes it iterate through the inner for loop again, meaning it takes the next letter
                      positions. */
-                    if (lwl == pwl) {
+                    if (arraysListWordLetter == placeableWordLetter) {
                         closestMatch1SameLetters++;
-                        closestMatch1Array = arraysList.get(ali);
+                        closestMatch1Array = arraysList.get(arraysListIndex);
                         break;
                     }
-                    /* */
-                    if (lwl < pwl && closestMatch1SameLetters == 0 && ) {
-
+                    /* If arraysList word letter is smaller than placeable word letter, and there haven't yet been
+                    letter matches, and the arrayList's next word letter is larger - then the WORD goes inbetween
+                    them. No need for closer matches.*/
+                    if (arraysListWordLetter < placeableWordLetter && closestMatch1SameLetters == 0
+                            && arraysListNextWordLetter > placeableWordLetter) {
+                        arraysList.add(arraysListNextWordIndex, placeableWord);
                     }
                     /* Check next word if there is a match on letter level. */
-                    if (lwl < pwl && closestMatch1SameLetters > 0) {
-                        ali++;
+                    if (arraysListWordLetter < placeableWordLetter && closestMatch1SameLetters > 0) {
+                        arraysListIndex++;
                     }
                     /* else lwl > pwl. That means that placeable word array will be put instead of the closest match
                     array pushing the closest match and rest of the list behind it forward.*/
@@ -422,7 +438,7 @@ public class WordGrabber {
     public void start() {
         stringFromUrl("http://norvig.com/big.txt", 1000);
         wordFromString(wholeString);
-        getWords();
+//        getWords();
 //        createGrid(10, 10);
 //        getGrid();
 
@@ -431,12 +447,13 @@ public class WordGrabber {
 //            wordsList.add(array[i]);
 //        }
 
-        //        convertWordsToArrays();
+                convertWordsToArrays();
+                getArraysList();
 //        getWordsArray();
 //        addFirstWord(columns);
 //        getGrid();
 
-        closetValue();
+//        closetValue();
 
     }
 }
