@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CB/CB.iml" filepath="$PROJECT_DIR$/CB/CB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CBArray1/CBArray1.iml" filepath="$PROJECT_DIR$/CBArray1/CBArray1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CBArray2/CBArray2.iml" filepath="$PROJECT_DIR$/CBArray2/CBArray2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CBArray3/CBArray3.iml" filepath="$PROJECT_DIR$/CBArray3/CBArray3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CBArrayCanBalance/CBArrayCanBalance.iml" filepath="$PROJECT_DIR$/CBArrayCanBalance/CBArrayCanBalance.iml" />
       <module fileurl="file://$PROJECT_DIR$/Crossword/Crossword.iml" filepath="$PROJECT_DIR$/Crossword/Crossword.iml" />
       <module fileurl="file://$PROJECT_DIR$/Date and Time/Date and Time.iml" filepath="$PROJECT_DIR$/Date and Time/Date and Time.iml" />
       <module fileurl="file://$PROJECT_DIR$/EX01/EX01.iml" filepath="$PROJECT_DIR$/EX01/EX01.iml" />
