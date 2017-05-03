@@ -16,6 +16,7 @@
       <module fileurl="file://$PROJECT_DIR$/EX07Module/EX07Module.iml" filepath="$PROJECT_DIR$/EX07Module/EX07Module.iml" />
       <module fileurl="file://$PROJECT_DIR$/EX09/EX09.iml" filepath="$PROJECT_DIR$/EX09/EX09.iml" />
       <module fileurl="file://$PROJECT_DIR$/EX11/EX11.iml" filepath="$PROJECT_DIR$/EX11/EX11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EX12/EX12.iml" filepath="$PROJECT_DIR$/EX12/EX12.iml" />
       <module fileurl="file://$PROJECT_DIR$/HelloWorldJavaFX/HelloWorldJavaFX.iml" filepath="$PROJECT_DIR$/HelloWorldJavaFX/HelloWorldJavaFX.iml" />
       <module fileurl="file://$PROJECT_DIR$/PR01/PR01.iml" filepath="$PROJECT_DIR$/PR01/PR01.iml" />
       <module fileurl="file://$PROJECT_DIR$/PR02/PR02.iml" filepath="$PROJECT_DIR$/PR02/PR02.iml" />
@@ -24,6 +25,7 @@
       <module fileurl="file://$PROJECT_DIR$/PR07/PR07.iml" filepath="$PROJECT_DIR$/PR07/PR07.iml" />
       <module fileurl="file://$PROJECT_DIR$/PR09/PR09.iml" filepath="$PROJECT_DIR$/PR09/PR09.iml" />
       <module fileurl="file://$PROJECT_DIR$/TK2/TK2.iml" filepath="$PROJECT_DIR$/TK2/TK2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TK2kirjalik/TK2kirjalik.iml" filepath="$PROJECT_DIR$/TK2kirjalik/TK2kirjalik.iml" />
       <module fileurl="file://$PROJECT_DIR$/tester/Time and Date.iml" filepath="$PROJECT_DIR$/tester/Time and Date.iml" />
       <module fileurl="file://$PROJECT_DIR$/javafx/javafx.iml" filepath="$PROJECT_DIR$/javafx/javafx.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/stkapt.iml" filepath="$PROJECT_DIR$/.idea/stkapt.iml" />
