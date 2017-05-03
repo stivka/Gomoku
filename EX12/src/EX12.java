@@ -4,6 +4,9 @@
 public class EX12 {
     public static int find(String where, String what) {
 
+        if (what.equals("")) {
+            return 0;
+        }
         if (where.length() == 0) {
             return 0;
         }
@@ -16,8 +19,8 @@ public class EX12 {
     }
     public static void main(String[] args) {
         System.out.println(find("tere", "e"));
-//        System.out.println(find("tere", "a"));
-//        System.out.println(find("abcde", "cde"));
+        System.out.println(find("tere", "a"));
+        System.out.println(find("abcde", "cde"));
 //        String what = "cde";
 //        String where = "abcde";
 //        System.out.println(where.indexOf(what));
