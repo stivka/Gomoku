@@ -2,6 +2,13 @@
  * Created by Stiv on 03/05/2017.
  */
 public class EX12 {
+    /**
+     *
+     * @param where The String that is 'passed through'.
+     * @param what The String that is searched for within where.
+     * @return The index number where the first what String was found at,
+     * or -1 if a String as what wasn't found.
+     */
     public static int find(String where, String what) {
 
         if (what.equals("")) {
@@ -19,17 +26,21 @@ public class EX12 {
 
     }
 
-    public static int findaway(String where, String what) {
-        if (where.length() == 0) {
-            where = what;
-            return - 1;
-        }
-
-        if (what.equals(where.substring(0, what.length()))) {
-
-        }
-        return findaway(where + what, what)
-    }
+//    public static int findaway(String where, String what) {
+//        if (where.length() == 0) {
+//            where = what;
+//            return -1;
+//        }
+//
+//        if (what.equals(where.substring(0, what.length()))) {
+//
+//        }
+//        return findaway(where + what, what);
+//    }
+    /**
+     *
+     * @param args The main function arguments.
+     */
     public static void main(String[] args) {
         System.out.println(find("tere", "e"));
         System.out.println(find("tere", "a"));
