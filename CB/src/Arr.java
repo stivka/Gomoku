@@ -128,4 +128,70 @@ public class Arr {
         }
         return false;
     }
+    public boolean linearIn(int[] outer, int[] inner) {
+        if (inner.length == 0) {
+            return true;
+        }
+
+        for (int i = 0; i < inner.length; i++) {
+            for (int j = 0; j < outer.length; j++) {
+                if (inner[i] < outer[j]) {
+                    return false;
+                }
+                if (inner[i] == outer[j]) {
+                    if (i == inner.length - 1) {
+                        return true;
+                    } else {
+                        j = i;
+                        break;
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+    public int[] squareUp(int n) {
+        if (n == 0) {
+            return new int[0];
+        }
+        if (n == 1) {
+            return new int[]{1};
+        }
+        int[] array = new int[n * n];
+        int initialN = n;
+        int nextN = n;
+        int o = 1;
+
+        for (int i = (n * n - 1); i > -1; i--) {
+            if ((i + 1) % n == 0) {
+                for (int j = 1; j < n + 1; j++) {
+                    if (j < nextN) {
+                        array[i - (j - 1)] = j;
+                    }
+                    if (j == nextN) {
+                        array[i - (j - 1)] = j;
+                        --nextN;
+                        break;
+                    }
+                }
+            }
+        }
+        return array;
+    }
+    public int[] seriesUp(int n) {
+        final int initialN = n;
+        final int length = n * (n + 1) / 2;
+        n = 1;
+        int i = 0;
+        int[] array = new int[length];
+        while (n <= initialN) {
+            for (int j = 1; j <= n; j++) {
+                array[i] = j;
+                ++i;
+            }
+            ++n;
+        }
+        return array;
+    }
 }

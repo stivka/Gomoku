@@ -25,7 +25,21 @@ public class EX12 {
         }
 
     }
-
+//    public static int rfind(String where, String what) {
+//        if (what.length() == 0) {
+//            return 0;
+//        }
+//        if (where.length() == 0) {
+//            return 0;
+//        }
+//        if (what.equals(where.substring(0, what.length()))) {
+//            return 0;
+//
+//        } else {
+//            return 1 + rfind(where.substring(1), what);
+//        }
+//
+//    }
 //    public static int findaway(String where, String what) {
 //        if (where.length() == 0) {
 //            where = what;
