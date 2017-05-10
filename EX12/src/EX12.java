@@ -16,6 +16,19 @@ public class EX12 {
         } else {
             return 1 + find(where.substring(1), what);
         }
+
+    }
+
+    public static int findaway(String where, String what) {
+        if (where.length() == 0) {
+            where = what;
+            return - 1;
+        }
+
+        if (what.equals(where.substring(0, what.length()))) {
+
+        }
+        return findaway(where + what, what)
     }
     public static void main(String[] args) {
         System.out.println(find("tere", "e"));

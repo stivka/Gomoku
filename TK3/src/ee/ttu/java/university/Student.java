@@ -10,13 +10,15 @@ public class Student {
 
     private String name;
 
-    List<Course> Courses = new ArrayList<>();
+    private static List<Course> courses = new ArrayList<>();
 
     public Student(String name) {
         this.name = name;
+
+
     }
     public List<Course> getCourses() {
-        return Course.;
+        return courses;
     }
     public static void main(String[] args){
         Student aavo = new Student("Aavo");

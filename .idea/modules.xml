@@ -17,6 +17,7 @@
       <module fileurl="file://$PROJECT_DIR$/EX09/EX09.iml" filepath="$PROJECT_DIR$/EX09/EX09.iml" />
       <module fileurl="file://$PROJECT_DIR$/EX11/EX11.iml" filepath="$PROJECT_DIR$/EX11/EX11.iml" />
       <module fileurl="file://$PROJECT_DIR$/EX12/EX12.iml" filepath="$PROJECT_DIR$/EX12/EX12.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EX13/EX13.iml" filepath="$PROJECT_DIR$/EX13/EX13.iml" />
       <module fileurl="file://$PROJECT_DIR$/HelloWorldJavaFX/HelloWorldJavaFX.iml" filepath="$PROJECT_DIR$/HelloWorldJavaFX/HelloWorldJavaFX.iml" />
       <module fileurl="file://$PROJECT_DIR$/PR01/PR01.iml" filepath="$PROJECT_DIR$/PR01/PR01.iml" />
       <module fileurl="file://$PROJECT_DIR$/PR02/PR02.iml" filepath="$PROJECT_DIR$/PR02/PR02.iml" />
@@ -29,7 +30,6 @@
       <module fileurl="file://$PROJECT_DIR$/TK3/TK3.iml" filepath="$PROJECT_DIR$/TK3/TK3.iml" />
       <module fileurl="file://$PROJECT_DIR$/tester/Time and Date.iml" filepath="$PROJECT_DIR$/tester/Time and Date.iml" />
       <module fileurl="file://$PROJECT_DIR$/javafx/javafx.iml" filepath="$PROJECT_DIR$/javafx/javafx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/stkapt.iml" filepath="$PROJECT_DIR$/.idea/stkapt.iml" />
       <module fileurl="file://$PROJECT_DIR$/tester/tester.iml" filepath="$PROJECT_DIR$/tester/tester.iml" />
     </modules>
   </component>
