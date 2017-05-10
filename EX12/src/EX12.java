@@ -11,7 +11,7 @@ public class EX12 {
      */
     public static int find(String where, String what) {
 
-        if (what.equals("")) {
+        if (what.length() == 0) {
             return 0;
         }
         if (where.length() == 0) {
