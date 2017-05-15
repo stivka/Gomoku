@@ -1,5 +1,6 @@
 /**
  * Created by Stiv on 02/05/2017.
+ * 25 Codingbat recursion exercises.
  */
 public class Rec {
     public int factorial(int n) {
