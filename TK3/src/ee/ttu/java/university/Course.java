@@ -1,5 +1,6 @@
 package ee.ttu.java.university;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,21 +8,25 @@ import java.util.List;
  */
 public class Course {
     private String name;
-    private List<Student> Students();
+
+    private List<Student> students = new ArrayList<>();
 
     public Course(String name) {
         this.name = name;
     }
+
     public void enrol(Student student) {
-
+        students.add(student);
+        student.addCourse(this);
     }
-    public List<Student>getStudents() {
-
-        return null;
+    public List<Student> getStudents() {
+        return students;
     }
-    public static void main(String[] args) {
-        Course mata = new Course("Mata");
-        mata.enrol(aavo);
-
+    public String toString() {
+        return this.name;
+    }
+    public void removeCourse(Student student) {
+        students.remove(student);
+        student.removeCourse(this);
     }
 }

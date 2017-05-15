@@ -15,7 +15,7 @@ public class EX13 {
         if (str.length() < word.length()) {
             return "+" + plusOut(str.substring(1), word);
         }
-        if (str.substring(0, word.length()).equals(word)) {
+        if (str.startsWith(word)) {
             return word + plusOut(str.substring(word.length()), word);
         }
         return "+" + plusOut(str.substring(1), word);

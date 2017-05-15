@@ -20,7 +20,7 @@ import java.util.*;
  * Created by Stiv on 19/04/2017.
  */
 public class WordGrabber {
-    private List<String> wordsList = new ArrayList<>();
+    private static List<String> wordsList = new ArrayList<>();
     private String wholeString;
     private String word;
     private int[][] grid;
@@ -45,7 +45,7 @@ public class WordGrabber {
      * @param lineCount The number of lines you are going use from this
      *                  text file.
      */
-    public static void stringFromUrl(String url, int lineCount) {
+    public void stringFromUrl(String url, int lineCount) {
         try {
 
             URL url1 = new URL(url);
@@ -118,12 +118,6 @@ public class WordGrabber {
         }
     }
 
-    public void getWords() {
-        java.util.Collections.sort(wordsList);
-        wordsList.forEach(System.out::println);
-        System.out.println("Currently there are " + wordsList.size()
-        + " words in the list.");
-    }
 
     public void createGrid(int rows, int columns) {
         this.rows = rows;
@@ -258,23 +252,14 @@ public class WordGrabber {
     }
 
 
-//    /**
-//     *
-//     * @param args sth.
-//     */
-//    public static void main(String[] args) {
-//        WordGrabber wordGrab = new WordGrabber();
-//        wordGrab.start();
-//    }
-//
-//    /**
-//     * I made a non static method, so I could use my global non-static
-//     * variable (eg. wholeString).
-//     */
-//    public void start() {
-//        stringFromUrl("http://norvig.com/big.txt", 1000);
-//        wordFromString(wholeString);
-//        getWords();
-//
-//    }
+    /**
+     * I made a non static method, so I could use my global non-static
+     * variable (eg. wholeString).
+     */
+    public void start() {
+        stringFromUrl("http://norvig.com/big.txt", 1000);
+        wordFromString(wholeString);
+        getWords();
+
+    }
 }

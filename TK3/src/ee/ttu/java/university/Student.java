@@ -10,17 +10,22 @@ public class Student {
 
     private String name;
 
-    private static List<Course> courses = new ArrayList<>();
+    private List<Course> courses = new ArrayList<>();
 
     public Student(String name) {
         this.name = name;
-
-
     }
     public List<Course> getCourses() {
         return courses;
     }
-    public static void main(String[] args){
-        Student aavo = new Student("Aavo");
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
+    public String toString() {
+        return name;
+    }
+    public void removeCourse(Course course) {
+        courses.remove(course);
     }
 }
