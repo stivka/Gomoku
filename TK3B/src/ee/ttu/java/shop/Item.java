@@ -12,7 +12,7 @@ public class Item {
 
 
     public Item(String type, String name) {
-        if (!type.equals(null) || !name.equals(null)) {
+        if (type != null && name != null && !type.equals("") && !name.equals("")) {
             this.type = type;
             this.name = name;
         }
