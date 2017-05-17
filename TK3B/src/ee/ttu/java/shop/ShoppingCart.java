@@ -16,11 +16,9 @@ public class ShoppingCart {
     }
 
     public void addItem(Item item) {
-//        types.add(item.getType());
-//        names.add(item.getName());
-
-        items.add(item);
-
+        if (!items.contains(item)) {
+            items.add(item);
+        }
     }
     public int countItems(String keyword) {
         int count = 0;
