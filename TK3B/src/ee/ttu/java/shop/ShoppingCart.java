@@ -25,7 +25,10 @@ public class ShoppingCart {
         if (items.size() == 0) {
             return 0;
         }
-        if (keyword == null || keyword.equals("")) {
+        if (keyword == null) {
+            return 0;
+        }
+        if (keyword.equals("")) {
             return 0;
         }
         for (int i = 0; i < items.size(); i++) {
