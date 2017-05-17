@@ -12,9 +12,11 @@ public class Main {
         firstBuy.addItem(paulig);
         firstBuy.addItem(löfbergs);
 
-        System.out.println(paulig.getType());
-        System.out.println(firstBuy.countItems("kohv"));
+//        System.out.println(paulig.getType());
+//        System.out.println(firstBuy.countItems("kohv"));
+//        System.out.println(firstBuy.countItems("Löfbergs kohv"));
 
-        System.out.println(firstBuy.countItems("Löfbergs kohv"));
+//        firstBuy.addItem(null);
+        System.out.println(firstBuy.countItems(null));
     }
 }
