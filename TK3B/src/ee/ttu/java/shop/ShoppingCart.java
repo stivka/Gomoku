@@ -24,6 +24,9 @@ public class ShoppingCart {
     }
     public int countItems(String keyword) {
         int count = 0;
+        if (items.size() == 0) {
+            return 0;
+        }
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getName().equals(keyword)) {
                 count++;
