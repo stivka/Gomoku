@@ -12,8 +12,10 @@ public class Item {
 
 
     public Item(String type, String name) {
-        this.type = type;
-        this.name = name;
+        if (!type.equals(null) || !name.equals(null)) {
+            this.type = type;
+            this.name = name;
+        }
     }
     public String getName() {
         return name;
