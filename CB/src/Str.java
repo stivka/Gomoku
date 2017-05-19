@@ -3,6 +3,7 @@ import java.util.List;
 
 /**
  * Created by Stiv on 19/05/2017.
+ * 8 + 1 done
  */
 public class Str {
     public int countYZ(String str) {

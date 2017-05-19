@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9b791358-9591-4b92-b7df-244f4c547a75" name="https://stkapt@git.ttu.ee/ained/iti0011/stkapt.git" url="https://stkapt@git.ttu.ee/ained/iti0011/stkapt.git">
+        <fileTransfer port="0" mountedRoot="C:\Users\Stiv\ITI0011\stkapt" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
