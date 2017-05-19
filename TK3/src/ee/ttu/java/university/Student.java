@@ -9,7 +9,6 @@ import java.util.List;
 public class Student {
 
     private String name;
-
     private List<Course> courses = new ArrayList<>();
 
     public Student(String name) {
@@ -21,7 +20,6 @@ public class Student {
     public void addCourse(Course course) {
         courses.add(course);
     }
-
     public String toString() {
         return name;
     }

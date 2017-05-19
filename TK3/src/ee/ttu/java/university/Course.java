@@ -8,13 +8,11 @@ import java.util.List;
  */
 public class Course {
     private String name;
-
     private List<Student> students = new ArrayList<>();
 
     public Course(String name) {
         this.name = name;
     }
-
     public void enrol(Student student) {
         students.add(student);
         student.addCourse(this);
