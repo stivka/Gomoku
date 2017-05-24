@@ -87,7 +87,7 @@ public class StivStrategy implements ComputerStrategy {
                         }
                         /* There can be 3 X 3 = 9 different cases with beginning, end and middle position
                         states. Of which one is unusable 000 - totally closed from all positions. So 8.
-                        Case 1 & 2  001 & 000  A closeable four, only one side open from the END.*/
+                        Case 1 & 2  001 & 000  A closeable chain, only one side open from the END.*/
                         if (four.size() == 4 && !beginningEmpty && !middleEmpty) {
                             if (row + 1 < board.getWidth() && col + 1 < board.getHeight()) {
                                 if (b[row + 1][col + 1] == SimpleBoard.EMPTY) {
@@ -98,7 +98,7 @@ public class StivStrategy implements ComputerStrategy {
                                 }
                             }
                             /*If isn't empty CAN ONLY BE opponents piece, otherwise the game would have already
-                            * been won. And in this case, its a closed four, so break.*/
+                            * been won. And in this case, its a closed chain, so break.*/
                             four.clear();
                             break;
                         }
@@ -132,19 +132,24 @@ public class StivStrategy implements ComputerStrategy {
                         if (four.size() == 5 && beginningEmpty && !middleEmpty) {
                             if (row + 1 < board.getWidth() && col + 1 < board.getHeight()) {
                                 if (b[row + 1][col + 1] == SimpleBoard.EMPTY) {
+                                    /* Case 6. 101 */
                                     four.add(new Square(new Location(row, col), SimpleBoard.EMPTY));
                                     openFours.add(four);
                                 }
                             }
-                            /* Case 3. 100 An open four that is open only from the BEGINNING. */
+                            /* Case 5. 100 An open chain that is open only from the BEGINNING closed by
+                            the border.*/
                             else if (row + 1 == board.getWidth() && col + 1 == board.getHeight()) {
                                 closeableFours.add(four);
+                                four.clear();
+                                break;
                             }
+                            /* Case 5. 100 closed by other player.*/
                             else if (b[row + 1][col + 1] != SimpleBoard.EMPTY) {
                                 closeableFours.add(four);
                             }
                         }
-                        /* Case 4. 110 An open four that is open from the BEGINNING and the MIDDLE. */
+                        /* Case 4. 110 An open chain that is open from the BEGINNING and the MIDDLE. */
                         if (four.size() == 5 && middleEmpty && beginningEmpty) {
                             if (row + 1 < board.getWidth() && col + 1 < board.getHeight()) {
                                 if (b[row + 1][col + 1] == SimpleBoard.EMPTY) {
@@ -157,6 +162,8 @@ public class StivStrategy implements ComputerStrategy {
             }
         }
     }
+
+    public int[][] incrementMainDiagonal()
     public class Square {
         private Object location;
         private int inhabitance;
