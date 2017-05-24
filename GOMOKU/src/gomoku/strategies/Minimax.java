@@ -26,6 +26,9 @@ public class Minimax implements ComputerStrategy {
     int colIncrement = 0;
     int depth = 3;
 
+    public static int row;
+    public static int col;
+
     /* Incrementing always starts from the main diagonal.
     The ordering is 0.main diagonal  1.anti diagonal  2.row  3.column .*/
     int incrementType = 0; // not static, that good?
@@ -34,31 +37,35 @@ public class Minimax implements ComputerStrategy {
 
     @Override
     public Location getMove(SimpleBoard board, int player) {
-        b = board.getBoard();
+        if (row == b.length - 1 || col == b[0].length - 1 && incrementType < 4)b = board.getBoard();
         p = player;
         iteration();
 
         return move;
     }
     public void iteration() {
-        for (int row = 0; row < b.length; row++) {
-            for (int col = 0; col < b[0].length; col++) {
+        for (int i = row; row < b.length; row++) {
+            for (int j = col; col < b[0].length; col++) {
                 /* If the iteration is at its' end, and there is still another type of incrementing to do, switch to the
                 next type of incrementing.*/
-                if (row == b.length - 1 && col == b[0].length - 1 && incrementType < 4) {
+                if (row == b.length - 1 || col == b[0].length - 1 && incrementType < 4) {
                     incrementType++;
+                }
+                else if (row == b.length - 1 || col == b[0].length - 1 && incrementType == 4) {
+
                 }
                 /* Searches for an EMPTY Square. If it is empty then there could be chain squares attached to it, making
                 it an open Four, which is an OPEN 'CHAIN'. We are looking for open CHAINS. */
                 if (b[row][col] == SimpleBoard.EMPTY) {
                     chain.add(new Square(new Location(row, col), SimpleBoard.EMPTY));
-                    findMagnitude(row, col);
+                    findMagnitude();
                 }
             }
         }
+        getMove(new SimpleBoard(b), p);
     }
-    public Square findMagnitude(int row, int col) {
-        increment(row, col);
+    public Square findMagnitude() {
+        increment();
 
         if (b[row][col] == p) {
             chain.add(new Square(new Location(row, col), p));
@@ -66,32 +73,67 @@ public class Minimax implements ComputerStrategy {
         }
         return square;
     }
-    public void increment(int row, int col) {
+    public void increment() {
         /* Scoots through here the increment values, and picks the one suitable for which lines it is currently
         browsing through.*/
-        if (incrementType.equals("mainDiagonal")) {
+        if (incrementType == 0) { // main diagonal
             rowIncrement = 1; colIncrement = 1;
         }
-        if (incrementType.equals("antiDiagonal")) {
+        if (incrementType == 1) { // anti diagonal
             rowIncrement = -1; colIncrement = 1;
         }
-        if (incrementType.equals("row")) {
+        if (incrementType == 2) { // row
             rowIncrement = 0; colIncrement = 1;
         }
-        if (incrementType.equals("column")) {
+        if (incrementType == 3) { // column
             rowIncrement = 1; colIncrement = 0;
         }
         while (row + rowIncrement >= 0 && row + rowIncrement < b.length
                 && col + colIncrement >= 0 && col + colIncrement < b[0].length) {
             row += rowIncrement;
             col += colIncrement;
-            findMagnitude(row, col);
+            findMagnitude();
+        }
+        /* If the incrementing puts the row or col out of bounds, the type is changed. */
+        if (incrementType < 3) {
+            incrementType++;
+            increment();
+        } else {
+            iteration();
         }
 
-        increment(row, col);
 
     }
+    public int getRow() {
+        return row;
+    }
+    public int getCol() {
+        return col;
+    }
+    public class RowAndCol {
+        private final int row;
+        private final int col;
 
+        public RowAndCol() {
+            this.row = row;
+            this.col = col;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int getCol() {
+            return col;
+        }
+        public void setRow() {
+
+        }
+        public void setCol() {
+
+        }
+
+    }
 
     public class Square {
         private Location location;
