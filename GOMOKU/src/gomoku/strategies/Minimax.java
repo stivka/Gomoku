@@ -19,18 +19,18 @@ public class Minimax implements ComputerStrategy {
     public static int p;
 
     int links = 0;
-    List<Square> chain = new ArrayList<>();
-    List<List<Square>> openFours = new ArrayList<>();
-    List<List<Square>> closeableFours = new ArrayList<>();
-    List<List<Square>> openThrees = new ArrayList<>();
-    List<List<Square>> closeableThrees = new ArrayList<>();
+    List<BSquare> chain = new ArrayList<>();
+    List<List<BSquare>> openFours = new ArrayList<>();
+    List<List<BSquare>> closeableFours = new ArrayList<>();
+    List<List<BSquare>> openThrees = new ArrayList<>();
+    List<List<BSquare>> closeableThrees = new ArrayList<>();
 
 
     int rowIncrement = 0;
     int colIncrement = 0;
     boolean endOfLine = false;
     
-    int middleEmpty = 0;
+    int secondEmpty = 0;
     
     int depth = 3;
 
@@ -45,38 +45,40 @@ public class Minimax implements ComputerStrategy {
 
     Location move;
 
+    boolean iterated = false;
+
     @Override
     public Location getMove(SimpleBoard board, int player) {
-        if (incrementType >= 3) {
-        return move;
-        }
         b = board.getBoard();
         p = player;
-        iteration();
+        if (!iterated) {
+            iteration();
+        }
         /* For preliminary testing, lets just place the pieces at successive empty squares.*/
-        for (int row = b.length - 1; row >= 0; row--) {
-            for (int col = b[0].length - 1; col >= 0; col--) {
-                if (b[row][col] == SimpleBoard.EMPTY) {
+        for (int i = 0; i < b.length; i++) {
+            for (int j = 0; j < b[0].length; j++) {
+                if (b[i][j] == SimpleBoard.EMPTY) {
                     // first empty location
-                    return new Location(row, col);
+                    printListSize();
+                    return new Location(i, j);
                 }
             }
         }
         return null;
     }
     public void iteration() {
-        for (int i = ir; i < b.length; i++) {
-            for (int j = ic; j < b[0].length; j++) {
-                 /* Searches for an EMPTY Square. If it is empty then there could be chain squares attached to it, making
-                it an open Four, which is an OPEN 'CHAIN'. We are looking for open CHAINS. */
-                if (b[row][col] == SimpleBoard.EMPTY) {
-                    chain.add(new Square(new Location(row, col), SimpleBoard.EMPTY));
-                    /* Store iterator values globally, so when you come back here, you will know where you left off.*/
-                    ir = i; ic = j;
+        /* Store iterator values globally, so when you come back here, you will know where you left off.*/
+        for (int i = ir; ir < b.length; ir++) {
+            for (int j = ic; ic < b[0].length; ic++) {
+                 /* Searches for an EMPTY BSquare. If it is empty then there could be chain squares attached to it,
+                  which could make it for example an open Four, which is an OPEN 'CHAIN'. We are looking for open
+                  CHAINS and closeable chains. */
+                if (b[ir][ic] == SimpleBoard.EMPTY) {
+                    chain.add(new BSquare(new Location(row, col), SimpleBoard.EMPTY));
                     increment();
                 }
-                /* If the iteration is at its' end, and there is still another type of incrementing to do, switch to the
-                next type of incrementing and reset the col and row values to zero, the beginning.*/
+                /* If the getOpponentLastMove is at its' end, and there is still another type of incrementing to do, switch to the
+                next type of incrementing and reset the col and row values to zero, to the beginning of getOpponentLastMove.*/
                 if (i == b.length - 1 && j == b[0].length - 1 && incrementType < 3) {
                     incrementType++;
                     i = 0; ir = i;
@@ -85,32 +87,9 @@ public class Minimax implements ComputerStrategy {
 
             }
         }
-        /* When the cursor arrives here, it means that the increment value is 3 and col = */
+        /* When the cursor arrives here, it means that the increment value is 3 and col = 9 and row = 9. */
+        iterated = true;
         getMove(new SimpleBoard(b), p);
-    }
-    public void assignMagnitude() {
-        if (b[row][col] == p) {
-            chain.add(new Square(new Location(row, col), p));
-        }
-        if (b[row][col] == SimpleBoard.EMPTY && middleEmpty < 2) {
-            middleEmpty++;
-            chain.add(new Square(new Location(row, col), p));
-        }
-        /* If is opponents piece CUT OUT THE CHAIN, this is as big as it gets.*/
-        else if (b[row][col] != p && b[row][col] != SimpleBoard.EMPTY) {
-            sortChains();
-        }
-        /* If there is a THIRD open link in the chain. THEN THE CHAIN has ended on the previous link. In other words
-        don't add this link to the chain, and send the chain as is to the SORTER. */
-        else if (b[row][col] == SimpleBoard.EMPTY && middleEmpty == 1) {
-            sortChains();
-        }
-        /* If we aren't at the border, we continue incrementing.*/
-        if (!endOfLine) {
-            increment();
-        } else {
-            // add the chain to matching chain list of matching magnitude.
-        }
     }
     public void increment() {
         /* Scoots through here the increment values, and picks the one suitable for which lines it is currently
@@ -129,21 +108,50 @@ public class Minimax implements ComputerStrategy {
         }
         /*          (Tries to find the magnitude for the chain.)
         First tries to increment the chain, if incrementing isn't possible, because the incrementing would lead out of
-        bounds, the chain is kept with the current magnitude, and is CHOPPED UP AND STORED.*/
+        bounds, the chain is kept with the current magnitude, and is CHOPPED UP AND possibly STORED.*/
         while (row + rowIncrement >= 0 && row + rowIncrement < b.length
                 && col + colIncrement >= 0 && col + colIncrement < b[0].length) {
             row += rowIncrement;
             col += colIncrement;
             assignMagnitude();
         }
-        /* If it can't increment any longer. Return to iteration. And assess what you got, and store it away.*/
+        /* If it can't increment any longer. Return to getOpponentLastMove. And assess what you got, and store it away.*/
         endOfLine = true;
         assignMagnitude();
+    }
+    public void assignMagnitude() {
+        if (b[row][col] == p) {
+            chain.add(new BSquare(new Location(row, col), p));
+        }
+        if (b[row][col] == SimpleBoard.EMPTY && secondEmpty < 2) {
+            secondEmpty++;
+            /*If the the second chain link is also empty, then go back to iterating. */
+            if (chain.get(0).getInhabitance() == SimpleBoard.EMPTY) {
+                chain.clear();
+                iteration();
+            }
+            chain.add(new BSquare(new Location(row, col), p));
+        }
+        /* If is opponents piece CUT OUT THE CHAIN, this is as big as it gets.*/
+        else if (b[row][col] != p && b[row][col] != SimpleBoard.EMPTY) {
+            sortChains();
+        }
+        /* If there is a THIRD open link in the chain. THEN THE CHAIN has ended on the previous link. In other words
+        don't add this link to the chain, and send the chain as is to the SORTER. */
+        else if (b[row][col] == SimpleBoard.EMPTY && secondEmpty == 1) {
+            sortChains();
+        }
+        /* If we aren't at the border, we continue incrementing.*/
+        if (!endOfLine) {
+            increment();
+        } else {
+            // add the chain to matching chain list of matching magnitude.
+        }
     }
     public void sortChains() {
         int magnitudeCount = 0;
         int openEnds = 0;
-        for (Square link : chain) {
+        for (BSquare link : chain) {
             if (link.getInhabitance() == p) {
                 magnitudeCount++;
             } else {
@@ -181,12 +189,12 @@ public class Minimax implements ComputerStrategy {
             System.out.println("You have " + closeableThrees.size() + " closeable threes.");
         }
     }
-    public class Square {
+    public class BSquare {
         private Location location;
         private int inhabitance;
 
 
-        public Square(Location location, int inhabitance) {
+        public BSquare(Location location, int inhabitance) {
             this.location = location;
             this.inhabitance = inhabitance;
         }
