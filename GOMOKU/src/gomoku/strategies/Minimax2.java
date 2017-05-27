@@ -15,6 +15,7 @@ public class Minimax2 implements ComputerStrategy {
     public static int[][] lastBoard;
     public static int[][] currentBoard;
 
+    boolean firstMove = true;
     public static int you;
     public static int opponent;
 
@@ -36,18 +37,9 @@ public class Minimax2 implements ComputerStrategy {
 
     @Override
     public Location getMove(SimpleBoard board, int player) {
-        if (player == SimpleBoard.PLAYER_WHITE && lastBoard == null) {
-            System.out.println("Board is null");
-            you = SimpleBoard.PLAYER_WHITE;
-            opponent = SimpleBoard.PLAYER_BLACK;
-            lastBoard = board.getBoard();
-            lastBoard[5][5] = player;
-            yourLastMove = new Location(5, 5);
-            return new Location(5, 5);
-        }
-        else if (player == SimpleBoard.PLAYER_BLACK) {
-            you = SimpleBoard.PLAYER_BLACK;
-            opponent = SimpleBoard.PLAYER_WHITE;
+        if (firstMove) {
+            firstMoves(board, player);
+            return yourLastMove;
         }
 
         currentBoard = board.getBoard();
@@ -56,7 +48,39 @@ public class Minimax2 implements ComputerStrategy {
         lookAround(opponent, opponentLastMove);
 
         lookAround(you, yourLastMove);
+
+        for (int i = 0; i < currentBoard.length; i++) {
+            for (int j = 0; j < currentBoard[0].length; j++) {
+                if (currentBoard[i][j] == SimpleBoard.EMPTY) {
+                    // first empty location
+                    return new Location(i, j);
+                }
+            }
+        }
         return null;
+    }
+
+    public void firstMoves(SimpleBoard board, int player) {
+        firstMove = false;
+        if (player == SimpleBoard.PLAYER_WHITE) {
+            you = SimpleBoard.PLAYER_WHITE;
+            opponent = SimpleBoard.PLAYER_BLACK;
+            lastBoard = board.getBoard();
+            lastBoard[board.getHeight() / 2][board.getWidth() / 2] = player;
+            yourLastMove = new Location(board.getHeight() / 2, board.getWidth() / 2);
+        }
+        else if (player == SimpleBoard.PLAYER_BLACK) {
+            you = SimpleBoard.PLAYER_BLACK;
+            opponent = SimpleBoard.PLAYER_WHITE;
+            lastBoard = board.getBoard();
+            if (lastBoard[board.getHeight() / 2][board.getWidth() / 2] == SimpleBoard.EMPTY) {
+                lastBoard[board.getHeight() / 2][board.getWidth() / 2] = player;
+                yourLastMove = new Location(board.getHeight() / 2, board.getWidth() / 2);
+            } else {
+                lastBoard[board.getHeight() / 2 - 1][board.getWidth() / 2 - 1] = player;
+                yourLastMove = new Location(board.getHeight() / 2 - 1, board.getWidth() / 2 - 1);
+            }
+        }
     }
 
     public void lookAround(int player, Location lastMove) {
@@ -75,8 +99,24 @@ public class Minimax2 implements ComputerStrategy {
     }
     public void lookOnLine(int row, int col, int player) {
         /* The row and col of adjacent piece to opponentLastMove.*/
-        int rowIncrement = opponentLastMove.getRow() - row;
-        int colIncrement = opponentLastMove.getColumn() - col;
+        int rowIncrement;
+        int colIncrement;
+
+        if (player == you) {
+            rowIncrement = yourLastMove.getRow() - row;
+            colIncrement = yourLastMove.getColumn() - col;
+
+//            for (List<Location> chain: yourOpenFour){
+//                for (Location link : chain) {
+//                    if (currentBoard[link.getRow()][link.getColumn()] == SimpleBoard.EMPTY) {
+//
+//                    }
+//                }
+//            }
+        } else {
+            rowIncrement = opponentLastMove.getRow() - row;
+            colIncrement = opponentLastMove.getColumn() - col;
+        }
 
         /* Check in one direction of the line.*/
         while (row + rowIncrement >= 0 && col + colIncrement >= 0
@@ -132,6 +172,11 @@ public class Minimax2 implements ComputerStrategy {
         if (chain.size() == 3) {
 
         }
+        printLists();
+    }
+
+    public void printLists() {
+        System.out.println(opponentCloseableFour.size());
     }
 
     public void getOpponentLastMove() {
@@ -140,7 +185,7 @@ public class Minimax2 implements ComputerStrategy {
                 /* The square that is different on this board from the square on lastBoard,
                 is the OPPONENT'S LAST MOVE.*/
                 if (currentBoard[i][j] != lastBoard[i][j]) {
-                    System.out.println(String.valueOf(currentBoard[i][j]));
+//                    System.out.println(String.valueOf(currentBoard[i][j]));
                     opponentLastMove = new Location(i, j);
                     chain.add(opponentLastMove);
                 }
