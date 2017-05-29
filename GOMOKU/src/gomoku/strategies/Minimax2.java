@@ -18,8 +18,12 @@ public class Minimax2 implements ComputerStrategy {
     public static int you;
     public static int opponent;
 
+    boolean lookAroundOpponent = true;
+
     Location opponentLastMove;
     Location yourLastMove;
+
+    boolean checkListOpponent = true;
 
     public static List<Location> chain = new ArrayList<>();
     public static List<Location> chainEmptyLinks = new ArrayList<>();
@@ -39,6 +43,8 @@ public class Minimax2 implements ComputerStrategy {
         chain.clear();
         chainEmptyLinks.clear();
 
+        checkPlayer = opponent;
+
         currentBoard = board.getBoard();
         getOpponentLastMove();
 
@@ -55,6 +61,7 @@ public class Minimax2 implements ComputerStrategy {
             for (int j = 0; j < currentBoard[0].length; j++) {
                 if (currentBoard[i][j] == SimpleBoard.EMPTY) {
                     // first empty location
+                    yourLastMove = new Location(i, j);
                     return new Location(i, j);
                 }
             }
@@ -63,17 +70,27 @@ public class Minimax2 implements ComputerStrategy {
     }
 
     public void checkFromLists() {
+        Location lastMove;
+
+        if (checkListOpponent) {
+            checkListOpponent = false;
+            lastMove = opponentLastMove;
+
+        } else {
+            checkListOpponent = true;
+            lastMove = yourLastMove;
+        }
         /* If one of the locations is already stored as an empty in a list with four pieces of one player.*/
-        if (opponentCloseableFours.contains(opponentLastMove)) {
+        if (opponentCloseableFours.contains(lastMove)) {
             System.out.println("It's in ocf");
         }
-        if (opponentOpenFours.contains(opponentLastMove)) {
+        if (opponentOpenFours.contains(lastMove)) {
             System.out.println("it's in oof");
         }
-        if (yourCloseableFours.contains(opponentLastMove)) {
+        if (yourCloseableFours.contains(lastMove)) {
             System.out.println("it's in ycf");
         }
-        if (yourOpenFours.contains(opponentLastMove)) {
+        if (yourOpenFours.contains(lastMove)) {
             System.out.println("it's in yof");
         } else {
             lookAround();
@@ -104,29 +121,43 @@ public class Minimax2 implements ComputerStrategy {
 
 
     public void lookAround() {
-        int player = opponent;
-        Location lastMove = opponentLastMove;
+        Location lastMove;
+        int player;
+        /* lookAroundOpponent value is globally set to true initially, so that it would first check opponent's state
+        of affairs. Whence it passes into the if condition, the player is switched to you. */
+        if (lookAroundOpponent) {
+            lookAroundOpponent = false;
+
+            player = opponent;
+            lastMove = opponentLastMove;
+            chain.clear();
+            chain.add(lastMove);
+        } else {
+            player = you;
+            lastMove = yourLastMove;
+            chain.clear();
+            chain.add(yourLastMove);
+        }
+
         for (int row = lastMove.getRow() - 1; row <= lastMove.getRow() + 1; row++) {
             for (int col = lastMove.getColumn() - 1; col <= lastMove.getColumn() + 1; col++) {
                 /* If the square to be viewed is in bounds of the board.*/
                 if (row >= 0 && col >= 0 && row < currentBoard.length && col < currentBoard.length) {
                     /* If there's one of opponent's pieces adjacent to the move he made last.*/
-                    if (currentBoard[row][col] == player) {
+                    if (currentBoard[row][col] == player && lastMove.getRow() != row && lastMove.getColumn() != col) {
                         chain.add(new Location(row, col));
                         lookOnLine(row, col, player);
                     }
                 }
             }
         }
-        if (player == opponent) {
-            player = you;
-            lastMove = yourLastMove;
-            lookAround();
-        }
+        /* Call again the same method, for checking YOUR moves.*/
+        lookAround();
     }
 
     public void lookOnLine(int row, int col, int player) {
-        /* The row and col of adjacent piece to lastMove.*/
+        /* The row and col of adjacent piece to lastMove.
+        lookOnline is called out first with opponent as player, and second you as player, from lookAround method.*/
         int rowIncrement;
         int colIncrement;
         Location lastMove;
@@ -211,7 +242,6 @@ public class Minimax2 implements ComputerStrategy {
                 if (currentBoard[i][j] != lastBoard[i][j]) {
 //                    System.out.println(String.valueOf(currentBoard[i][j]));
                     opponentLastMove = new Location(i, j);
-                    chain.add(opponentLastMove);
                 }
             }
         }
