@@ -126,24 +126,19 @@ public class Minimax2 implements ComputerStrategy {
     }
 
     public void lookOnLine(int row, int col, int player) {
-        /* The row and col of adjacent piece to opponentLastMove.*/
+        /* The row and col of adjacent piece to lastMove.*/
         int rowIncrement;
         int colIncrement;
+        Location lastMove;
 
         if (player == you) {
             rowIncrement = yourLastMove.getRow() - row;
             colIncrement = yourLastMove.getColumn() - col;
-
-//            for (List<Location> chain: yourOpenFours){
-//                for (Location link : chain) {
-//                    if (currentBoard[link.getRow()][link.getColumn()] == SimpleBoard.EMPTY) {
-//
-//                    }
-//                }
-//            }
+            lastMove = yourLastMove;
         } else {
             rowIncrement = opponentLastMove.getRow() - row;
             colIncrement = opponentLastMove.getColumn() - col;
+            lastMove = opponentLastMove;
         }
 
         /* Check in one direction of the line.*/
@@ -151,7 +146,7 @@ public class Minimax2 implements ComputerStrategy {
                 && row + rowIncrement < currentBoard.length && col + colIncrement < currentBoard.length) {
             row += rowIncrement;
             col += colIncrement;
-            if (currentBoard[row][col] == player && currentBoard[row][col] != player) {
+            if (currentBoard[row][col] == player && lastMove.getRow() != row && lastMove.getColumn() != col) {
                 chain.add(new Location(row, col));
             }
             /* Also adds the locations of any possible empty squares, to later determine if the chain is 'open' or not.*/
@@ -165,9 +160,9 @@ public class Minimax2 implements ComputerStrategy {
         /* Check the other direction of the line.*/
         while (row - rowIncrement >= 0 && col - colIncrement >= 0
                 && row - rowIncrement < currentBoard.length && col - colIncrement < currentBoard.length) {
-            row = opponentLastMove.getRow() - rowIncrement;
-            col = opponentLastMove.getColumn() - colIncrement;
-            if (currentBoard[row][col] == player) {
+            row -= rowIncrement;
+            col -= colIncrement;
+            if (currentBoard[row][col] == player && lastMove.getRow() != row && lastMove.getColumn() != col) {
                 chain.add(new Location(row, col));
             }
             if (currentBoard[row][col] == SimpleBoard.EMPTY) {
@@ -182,6 +177,7 @@ public class Minimax2 implements ComputerStrategy {
     }
 
     public void determineChainType(int player) {
+        /* If there are 4 links of one player next to each other, it is a potential closeable or open chain.*/
         if (chain.size() == 4) {
             chain.addAll(chainEmptyLinks);
             if (chainEmptyLinks.size() == 2) {
