@@ -20,10 +20,11 @@ public class Minimax2 implements ComputerStrategy {
 
     boolean lookAroundOpponent = true;
 
-    Location opponentLastMove;
-    Location yourLastMove;
-
-    boolean checkListOpponent = true;
+    public static Location opponentLastMove;
+    public static Location yourLastMove;
+    public static Location adjacent;
+    public static int player;
+    public static Location lastMove;
 
     public static List<Location> chain = new ArrayList<>();
     public static List<Location> chainEmptyLinks = new ArrayList<>();
@@ -34,6 +35,7 @@ public class Minimax2 implements ComputerStrategy {
 
     public static List<List<List<Location>>> opponentLists = new ArrayList<>();
 
+
     @Override
     public Location getMove(SimpleBoard board, int player) {
         if (firstMove) {
@@ -42,8 +44,6 @@ public class Minimax2 implements ComputerStrategy {
         }
         chain.clear();
         chainEmptyLinks.clear();
-
-        checkPlayer = opponent;
 
         currentBoard = board.getBoard();
         getOpponentLastMove();
@@ -62,6 +62,7 @@ public class Minimax2 implements ComputerStrategy {
                 if (currentBoard[i][j] == SimpleBoard.EMPTY) {
                     // first empty location
                     yourLastMove = new Location(i, j);
+                    lastBoard[i][j] = player;
                     return new Location(i, j);
                 }
             }
@@ -70,16 +71,7 @@ public class Minimax2 implements ComputerStrategy {
     }
 
     public void checkFromLists() {
-        Location lastMove;
 
-        if (checkListOpponent) {
-            checkListOpponent = false;
-            lastMove = opponentLastMove;
-
-        } else {
-            checkListOpponent = true;
-            lastMove = yourLastMove;
-        }
         /* If one of the locations is already stored as an empty in a list with four pieces of one player.*/
         if (opponentCloseableFours.contains(lastMove)) {
             System.out.println("It's in ocf");
@@ -92,9 +84,119 @@ public class Minimax2 implements ComputerStrategy {
         }
         if (yourOpenFours.contains(lastMove)) {
             System.out.println("it's in yof");
-        } else {
+        }
+        else {
             lookAround();
         }
+    }
+
+    public void lookAround() {
+        /* lookAroundOpponent value is globally set to true initially, so that it would first check opponent's state
+        of affairs. Whence it passes into the if condition, the player is switched to you. */
+
+        for (int row = lastMove.getRow() - 1; row <= lastMove.getRow() + 1; row++) {
+            for (int col = lastMove.getColumn() - 1; col <= lastMove.getColumn() + 1; col++) {
+                /* If the square to be viewed is in bounds of the board.*/
+                if (row >= 0 && col >= 0 && row < currentBoard.length && col < currentBoard.length) {
+                    /* If there's one of opponent's pieces adjacent to the move he made last.*/
+                    if (currentBoard[row][col] == player && !(row == lastMove.getRow() && col == lastMove.getColumn())) {
+                        adjacent = new Location(row, col);
+                        chain.add(adjacent);
+                        lookOnLine(row, col, player);
+                    }
+                }
+            }
+        }
+        /* Call again the same method, for checking YOUR moves.*/
+        if (player == opponent) {
+            player = you;
+            lastMove = yourLastMove;
+
+            chain.clear();
+            chain.add(yourLastMove);
+
+            lookAround();
+        }
+        player = opponent;
+    }
+
+
+    public void lookOnLine(int row, int col, int player) {
+        /* The row and col of adjacent piece to lastMove.
+        lookOnline is called out first with opponent as player, and second you as player, from lookAround method.*/
+        int rowIncrement;
+        int colIncrement;
+        Location lastMove;
+
+        if (player == you) {
+            rowIncrement = yourLastMove.getRow() - row;
+            colIncrement = yourLastMove.getColumn() - col;
+            lastMove = yourLastMove;
+        } else {
+            rowIncrement = opponentLastMove.getRow() - row;
+            colIncrement = opponentLastMove.getColumn() - col;
+            lastMove = opponentLastMove;
+        }
+
+        /* Check in one direction of the line.*/
+        while (row + rowIncrement >= 0 && col + colIncrement >= 0
+                && row + rowIncrement < currentBoard.length && col + colIncrement < currentBoard.length) {
+            row += rowIncrement;
+            col += colIncrement;
+            if (currentBoard[row][col] == player && !(row == lastMove.getRow() && col == lastMove.getColumn())
+                    && !(row == adjacent.getRow() && col == adjacent.getColumn())) {
+                chain.add(new Location(row, col));
+            }
+            /* Also adds the locations of any possible empty squares, to later determine if the chain is 'open' or not.*/
+            if (currentBoard[row][col] == SimpleBoard.EMPTY) {
+                chainEmptyLinks.add(new Location(row, col));
+                break;
+            /* else it is other player's piece, and it breaks your chain. */
+            } else if (currentBoard[row][col] != SimpleBoard.EMPTY && currentBoard[row][col] != player) {
+                break;
+            }
+        }
+        /* Check the other direction of the line.*/
+        while (row - rowIncrement >= 0 && col - colIncrement >= 0
+                && row - rowIncrement < currentBoard.length && col - colIncrement < currentBoard.length) {
+            row -= rowIncrement;
+            col -= colIncrement;
+            if (currentBoard[row][col] == player && !(row == lastMove.getRow() && col == lastMove.getColumn())
+                    && !(row == adjacent.getRow() && col == adjacent.getColumn())) {
+                chain.add(new Location(row, col));
+            }
+            if (currentBoard[row][col] == SimpleBoard.EMPTY) {
+                chainEmptyLinks.add(new Location(row, col));
+                break;
+            } else if (currentBoard[row][col] != SimpleBoard.EMPTY && currentBoard[row][col] != player){
+                break;
+            }
+        }
+        determineChainType(player);
+    }
+
+    public void determineChainType(int player) {
+        /* If there are 4 links of one player next to each other, it is a potential closeable or open chain.*/
+        if (chain.size() == 4) {
+            chain.addAll(chainEmptyLinks);
+//            System.out.println();
+            if (chainEmptyLinks.size() == 2) {
+                if (player == you) {
+                    yourOpenFours.add(chain);
+                }
+                opponentOpenFours.add(chain);
+            }
+            if (chainEmptyLinks.size() == 1) {
+                if (player == you) {
+                    yourCloseableFours.add(chain);
+                }
+                opponentCloseableFours.add(chain);
+            }
+        }
+        if (chain.size() == 3) {
+
+        }
+        printLists();
     }
 
     public void firstMoves(SimpleBoard board, int player) {
@@ -119,117 +221,6 @@ public class Minimax2 implements ComputerStrategy {
         }
     }
 
-
-    public void lookAround() {
-        Location lastMove;
-        int player;
-        /* lookAroundOpponent value is globally set to true initially, so that it would first check opponent's state
-        of affairs. Whence it passes into the if condition, the player is switched to you. */
-        if (lookAroundOpponent) {
-            lookAroundOpponent = false;
-
-            player = opponent;
-            lastMove = opponentLastMove;
-            chain.clear();
-            chain.add(lastMove);
-        } else {
-            player = you;
-            lastMove = yourLastMove;
-            chain.clear();
-            chain.add(yourLastMove);
-        }
-
-        for (int row = lastMove.getRow() - 1; row <= lastMove.getRow() + 1; row++) {
-            for (int col = lastMove.getColumn() - 1; col <= lastMove.getColumn() + 1; col++) {
-                /* If the square to be viewed is in bounds of the board.*/
-                if (row >= 0 && col >= 0 && row < currentBoard.length && col < currentBoard.length) {
-                    /* If there's one of opponent's pieces adjacent to the move he made last.*/
-                    if (currentBoard[row][col] == player && lastMove.getRow() != row && lastMove.getColumn() != col) {
-                        chain.add(new Location(row, col));
-                        lookOnLine(row, col, player);
-                    }
-                }
-            }
-        }
-        /* Call again the same method, for checking YOUR moves.*/
-        lookAround();
-    }
-
-    public void lookOnLine(int row, int col, int player) {
-        /* The row and col of adjacent piece to lastMove.
-        lookOnline is called out first with opponent as player, and second you as player, from lookAround method.*/
-        int rowIncrement;
-        int colIncrement;
-        Location lastMove;
-
-        if (player == you) {
-            rowIncrement = yourLastMove.getRow() - row;
-            colIncrement = yourLastMove.getColumn() - col;
-            lastMove = yourLastMove;
-        } else {
-            rowIncrement = opponentLastMove.getRow() - row;
-            colIncrement = opponentLastMove.getColumn() - col;
-            lastMove = opponentLastMove;
-        }
-
-        /* Check in one direction of the line.*/
-        while (row + rowIncrement >= 0 && col + colIncrement >= 0
-                && row + rowIncrement < currentBoard.length && col + colIncrement < currentBoard.length) {
-            row += rowIncrement;
-            col += colIncrement;
-            if (currentBoard[row][col] == player && lastMove.getRow() != row && lastMove.getColumn() != col) {
-                chain.add(new Location(row, col));
-            }
-            /* Also adds the locations of any possible empty squares, to later determine if the chain is 'open' or not.*/
-            if (currentBoard[row][col] == SimpleBoard.EMPTY) {
-                chainEmptyLinks.add(new Location(row, col));
-                break;
-            } else {
-                break;
-            }
-        }
-        /* Check the other direction of the line.*/
-        while (row - rowIncrement >= 0 && col - colIncrement >= 0
-                && row - rowIncrement < currentBoard.length && col - colIncrement < currentBoard.length) {
-            row -= rowIncrement;
-            col -= colIncrement;
-            if (currentBoard[row][col] == player && lastMove.getRow() != row && lastMove.getColumn() != col) {
-                chain.add(new Location(row, col));
-            }
-            if (currentBoard[row][col] == SimpleBoard.EMPTY) {
-                chainEmptyLinks.add(new Location(row, col));
-                break;
-            } else {
-                break;
-            }
-        }
-
-        determineChainType(player);
-    }
-
-    public void determineChainType(int player) {
-        /* If there are 4 links of one player next to each other, it is a potential closeable or open chain.*/
-        if (chain.size() == 4) {
-            chain.addAll(chainEmptyLinks);
-            if (chainEmptyLinks.size() == 2) {
-                if (player == you) {
-                    yourOpenFours.add(chain);
-                }
-                opponentOpenFours.add(chain);
-            }
-            if (chainEmptyLinks.size() == 1) {
-                if (player == you) {
-                    yourCloseableFours.add(chain);
-                }
-                opponentCloseableFours.add(chain);
-            }
-        }
-        if (chain.size() == 3) {
-
-        }
-        printLists();
-    }
-
     public void printLists() {
         System.out.println(opponentCloseableFours.size());
     }
@@ -242,6 +233,12 @@ public class Minimax2 implements ComputerStrategy {
                 if (currentBoard[i][j] != lastBoard[i][j]) {
 //                    System.out.println(String.valueOf(currentBoard[i][j]));
                     opponentLastMove = new Location(i, j);
+
+                    chain.clear();
+                    chain.add(opponentLastMove);
+
+                    lastMove = opponentLastMove;
+                    player = opponent;
                 }
             }
         }
