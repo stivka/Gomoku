@@ -28,9 +28,14 @@ public class Minimax2 implements ComputerStrategy {
 
     public static List<Location> chain = new ArrayList<>();
     public static List<Location> chainEmptyLinks = new ArrayList<>();
+
+    public static List<List<Location>> opponentOpenThrees = new ArrayList<>();
+    public static List<List<Location>> yourOpenThrees = new ArrayList<>();
+    public static List<List<Location>> opponentCloseableThrees = new ArrayList<>();
+    public static List<List<Location>> yourCloseableThrees = new ArrayList<>();
     public static List<List<Location>> opponentOpenFours = new ArrayList<>();
-    public static List<List<Location>> opponentCloseableFours = new ArrayList<>();
     public static List<List<Location>> yourOpenFours = new ArrayList<>();
+    public static List<List<Location>> opponentCloseableFours = new ArrayList<>();
     public static List<List<Location>> yourCloseableFours = new ArrayList<>();
 
     public static List<List<List<Location>>> opponentLists = new ArrayList<>();
@@ -56,12 +61,15 @@ public class Minimax2 implements ComputerStrategy {
         It will then enter the lookAround method:
         Look around opponents last move and look around your last move.*/
         checkFromLists();
+        printLists();
 
+        player = you;
         for (int i = 0; i < currentBoard.length; i++) {
             for (int j = 0; j < currentBoard[0].length; j++) {
                 if (currentBoard[i][j] == SimpleBoard.EMPTY) {
                     // first empty location
                     yourLastMove = new Location(i, j);
+                    lastBoard = currentBoard;
                     lastBoard[i][j] = player;
                     return new Location(i, j);
                 }
@@ -73,21 +81,28 @@ public class Minimax2 implements ComputerStrategy {
     public void checkFromLists() {
 
         /* If one of the locations is already stored as an empty in a list with four pieces of one player.*/
-        if (opponentCloseableFours.contains(lastMove)) {
-            System.out.println("It's in ocf");
+        for (int i = 0; i < yourCloseableFours.size(); i++) {
+            if (yourCloseableFours.get(i).contains(opponentLastMove)) {
+                /* Remove because it is closed. */
+                yourCloseableFours.remove(i);
+            }
         }
-        if (opponentOpenFours.contains(lastMove)) {
-            System.out.println("it's in oof");
+        for (int i = 0; i < opponentCloseableFours.size(); i++) {
+            if (opponentCloseableFours.get(i).contains(yourLastMove)) {
+                opponentCloseableFours.remove(i);
+            }
         }
-        if (yourCloseableFours.contains(lastMove)) {
-            System.out.println("it's in ycf");
+        for (int i = 0; i < yourOpenThrees.size(); i++) {
+            if (yourOpenThrees.get(i).contains(opponentLastMove)) {
+                yourOpenThrees.remove(i);
+            }
         }
-        if (yourOpenFours.contains(lastMove)) {
-            System.out.println("it's in yof");
+        for (int i = 0; i < opponentOpenThrees.size(); i++) {
+            if (opponentOpenThrees.get(i).contains(yourLastMove)) {
+                opponentOpenThrees.remove(i);
+            }
         }
-        else {
-            lookAround();
-        }
+        lookAround();
     }
 
     public void lookAround() {
@@ -100,6 +115,10 @@ public class Minimax2 implements ComputerStrategy {
                 if (row >= 0 && col >= 0 && row < currentBoard.length && col < currentBoard.length) {
                     /* If there's one of opponent's pieces adjacent to the move he made last.*/
                     if (currentBoard[row][col] == player && !(row == lastMove.getRow() && col == lastMove.getColumn())) {
+                        chain.clear();
+                        chainEmptyLinks.clear();
+
+                        chain.add(lastMove);
                         adjacent = new Location(row, col);
                         chain.add(adjacent);
                         lookOnLine(row, col, player);
@@ -111,9 +130,6 @@ public class Minimax2 implements ComputerStrategy {
         if (player == opponent) {
             player = you;
             lastMove = yourLastMove;
-
-            chain.clear();
-            chain.add(yourLastMove);
 
             lookAround();
         }
@@ -183,20 +199,37 @@ public class Minimax2 implements ComputerStrategy {
             if (chainEmptyLinks.size() == 2) {
                 if (player == you) {
                     yourOpenFours.add(chain);
+                } else {
+                    opponentOpenFours.add(chain);
                 }
-                opponentOpenFours.add(chain);
             }
             if (chainEmptyLinks.size() == 1) {
                 if (player == you) {
                     yourCloseableFours.add(chain);
+                } else {
+                    opponentCloseableFours.add(chain);
                 }
-                opponentCloseableFours.add(chain);
             }
         }
         if (chain.size() == 3) {
-
+            chain.addAll(chainEmptyLinks);
+            if (chainEmptyLinks.size() == 2) {
+                if (player == you) {
+                    yourOpenThrees.add(chain);
+                } else {
+                    opponentOpenThrees.add(chain);
+                }
+            }
+            if (chainEmptyLinks.size() == 1) {
+                if (player == you) {
+                    yourCloseableThrees.add(chain);
+                } else {
+                    opponentCloseableThrees.add(chain);
+                }
+            }
         }
-        printLists();
+        chain.clear();
+        chainEmptyLinks.clear();
     }
 
     public void firstMoves(SimpleBoard board, int player) {
@@ -222,7 +255,10 @@ public class Minimax2 implements ComputerStrategy {
     }
 
     public void printLists() {
-        System.out.println(opponentCloseableFours.size());
+        System.out.println("opponentCloseableFours.size()" + opponentCloseableFours.size());
+        System.out.println("opponentOpenThrees.size()" + opponentOpenThrees.size());
+        System.out.println("yourCloseableFours.size()" + yourCloseableFours.size());
+        System.out.println("yourOpenThrees.size()" + yourOpenThrees.size());
     }
 
     public void getOpponentLastMove() {
@@ -233,9 +269,6 @@ public class Minimax2 implements ComputerStrategy {
                 if (currentBoard[i][j] != lastBoard[i][j]) {
 //                    System.out.println(String.valueOf(currentBoard[i][j]));
                     opponentLastMove = new Location(i, j);
-
-                    chain.clear();
-                    chain.add(opponentLastMove);
 
                     lastMove = opponentLastMove;
                     player = opponent;
