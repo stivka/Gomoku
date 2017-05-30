@@ -82,23 +82,27 @@ public class Minimax2 implements ComputerStrategy {
 
         /* If one of the locations is already stored as an empty in a list with four pieces of one player.*/
         for (int i = 0; i < yourCloseableFours.size(); i++) {
-            if (yourCloseableFours.get(i).contains(opponentLastMove)) {
+            if (yourCloseableFours.get(i).contains(opponentLastMove)
+                    || yourCloseableFours.get(i).contains(yourLastMove)) {
                 /* Remove because it is closed. */
                 yourCloseableFours.remove(i);
             }
         }
         for (int i = 0; i < opponentCloseableFours.size(); i++) {
-            if (opponentCloseableFours.get(i).contains(yourLastMove)) {
+            if (opponentCloseableFours.get(i).contains(yourLastMove)
+                    || opponentCloseableFours.get(i).contains(opponentLastMove)) {
                 opponentCloseableFours.remove(i);
             }
         }
         for (int i = 0; i < yourOpenThrees.size(); i++) {
-            if (yourOpenThrees.get(i).contains(opponentLastMove)) {
+            if (yourOpenThrees.get(i).contains(opponentLastMove)
+                    || yourOpenThrees.get(i).contains(yourLastMove)) {
                 yourOpenThrees.remove(i);
             }
         }
         for (int i = 0; i < opponentOpenThrees.size(); i++) {
-            if (opponentOpenThrees.get(i).contains(yourLastMove)) {
+            if (opponentOpenThrees.get(i).contains(yourLastMove)
+                    || opponentOpenThrees.get(i).contains(opponentLastMove)) {
                 opponentOpenThrees.remove(i);
             }
         }
