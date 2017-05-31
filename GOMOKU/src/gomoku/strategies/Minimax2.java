@@ -61,6 +61,7 @@ public class Minimax2 implements ComputerStrategy {
         It will then enter the lookAround method:
         Look around opponents last move and look around your last move.*/
         checkFromLists();
+
         printLists();
 
         player = you;
@@ -71,6 +72,7 @@ public class Minimax2 implements ComputerStrategy {
                     yourLastMove = new Location(i, j);
                     lastBoard = currentBoard;
                     lastBoard[i][j] = player;
+
                     return new Location(i, j);
                 }
             }
@@ -95,15 +97,20 @@ public class Minimax2 implements ComputerStrategy {
             }
         }
         for (int i = 0; i < yourOpenThrees.size(); i++) {
-            if (yourOpenThrees.get(i).contains(opponentLastMove)
-                    || yourOpenThrees.get(i).contains(yourLastMove)) {
-                yourOpenThrees.remove(i);
+            for (int j = 0; j < yourOpenThrees.get(i).size(); j++) {
+                if (yourOpenThrees.get(i).get(j).equals(opponentLastMove)
+                        || yourOpenThrees.get(i).get(j).equals(yourLastMove)) {
+                    yourOpenThrees.remove(i);
+                }
             }
         }
         for (int i = 0; i < opponentOpenThrees.size(); i++) {
-            if (opponentOpenThrees.get(i).contains(yourLastMove)
-                    || opponentOpenThrees.get(i).contains(opponentLastMove)) {
-                opponentOpenThrees.remove(i);
+            System.out.println(opponentOpenThrees.get(i).size());
+            for (int j = 0; j < opponentOpenThrees.get(i).size(); j++) {
+                if (opponentOpenThrees.get(i).get(j).equals(yourLastMove)
+                        || opponentOpenThrees.get(i).get(j).equals(opponentLastMove)) {
+                    opponentOpenThrees.remove(i);
+                }
             }
         }
         lookAround();
@@ -261,8 +268,10 @@ public class Minimax2 implements ComputerStrategy {
     public void printLists() {
         System.out.println("opponentCloseableFours.size()" + opponentCloseableFours.size());
         System.out.println("opponentOpenThrees.size()" + opponentOpenThrees.size());
+        System.out.println("opponentCloseableThrees.size()" + opponentCloseableThrees.size());
         System.out.println("yourCloseableFours.size()" + yourCloseableFours.size());
         System.out.println("yourOpenThrees.size()" + yourOpenThrees.size());
+        System.out.println("yourCloseableThrees.size()" + yourCloseableThrees.size());
     }
 
     public void getOpponentLastMove() {
