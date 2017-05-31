@@ -107,6 +107,9 @@ public class Minimax2 implements ComputerStrategy {
         for (int i = 0; i < opponentOpenThrees.size(); i++) {
             System.out.println(opponentOpenThrees.get(i).size());
             for (int j = 0; j < opponentOpenThrees.get(i).size(); j++) {
+
+                System.out.println(String.valueOf(opponentOpenThrees.get(i)));
+
                 if (opponentOpenThrees.get(i).get(j).equals(yourLastMove)
                         || opponentOpenThrees.get(i).get(j).equals(opponentLastMove)) {
                     opponentOpenThrees.remove(i);
@@ -204,9 +207,11 @@ public class Minimax2 implements ComputerStrategy {
 
     public void determineChainType(int player) {
         /* If there are 4 links of one player next to each other, it is a potential closeable or open chain.*/
+        List<Location> chain2 = new ArrayList<Location>();
         if (chain.size() == 4) {
             chain.addAll(chainEmptyLinks);
 //            System.out.println();
+            chain2 = chain;
             if (chainEmptyLinks.size() == 2) {
                 if (player == you) {
                     yourOpenFours.add(chain);
@@ -224,11 +229,12 @@ public class Minimax2 implements ComputerStrategy {
         }
         if (chain.size() == 3) {
             chain.addAll(chainEmptyLinks);
+            chain2 = chain;
             if (chainEmptyLinks.size() == 2) {
                 if (player == you) {
-                    yourOpenThrees.add(chain);
+                    yourOpenThrees.add(chain2);
                 } else {
-                    opponentOpenThrees.add(chain);
+                    opponentOpenThrees.add(chain2);
                 }
             }
             if (chainEmptyLinks.size() == 1) {
